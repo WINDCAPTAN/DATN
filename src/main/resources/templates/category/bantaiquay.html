@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head"></div>
+<style>
+     .tab-content {
+        display: none;
+        padding: 20px;
+        border: 1px solid #ccc;
+        clear: both;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+</style>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar"></div>
+    <!-- End Sidebar -->
+
+    <div class="main-panel">
+        <div class="main-header">
+            <div class="main-header-logo">
+                <!-- Logo Header -->
+                <div class="logo-header" data-background-color="dark">
+                    <a href="../index.html" class="logo">
+                        <img
+                                th:src="@{/assets/img/kaiadmin/logo_light.svg}"
+                                alt="navbar brand"
+                                class="navbar-brand"
+                        />
+                    </a>
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle toggle-sidebar">
+                            <i class="gg-menu-right"></i>
+                        </button>
+                        <button class="btn btn-toggle sidenav-toggler">
+                            <i class="gg-menu-left"></i>
+                        </button>
+                    </div>
+                    <button class="topbar-toggler more">
+                        <i class="gg-more-vertical-alt"></i>
+                    </button>
+                </div>
+                <!-- End Logo Header -->
+            </div>
+            <!-- Navbar Header -->
+            <div th:replace="fragments/topbar"></div>
+            <!-- End Navbar -->
+        </div>
+        <!--Nội Dung-->
+        <div class="container">
+            <div class="page-inner">
+                <div class="row mt-5">
+                    <div class="col-md-8">
+                        <button id="addInvoice" class="btn btn-primary mt-3">Thêm hóa đơn</button>
+                        <ul class="nav nav-tabs" id="tabButtons">
+                            <!-- Các tab button sẽ được thêm vào đây -->
+                        </ul>
+                        <div class="tab-content" id="tabContents">
+                            <!-- Nội dung các tab sẽ được thêm vào đây -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <form id="invoiceForm">
+                            <div class="mb-3">
+                                <label for="khachHang" class="form-label">Khách Hàng</label>
+                                <input type="text" class="form-control" id="khachHang" >
+                                <button class="btn btn-primary">Chọn</button>
+                            </div>
+                            <div class="mb-3">
+                                <label for="voucher" class="form-label">Voucher:</label>
+                                <input type="text" class="form-control" id="voucher" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Phương thức thanh toán:</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected value=""></option>
+                                    <option value="1">One</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tổng tiền: </label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tien" class="form-label">Tiền khách đưa: </label>
+                                <input type="number" class="form-control" id="tien" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="thanhTien" class="form-label">Thành tiền: </label>
+                                <input type="number" class="form-control" id="thanhTien" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="tienTra" class="form-label">Tiền trả lại: </label>
+                                <input type="number" class="form-control" id="tienTra" >
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments/footer"></div>
+    </div>
+
+    <!-- Custom template | don't include it in your project! -->
+
+    <!-- End Custom template -->
+</div>
+<!--   Core JS Files   -->
+<script th:src="@{/assets/js/core/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/assets/js/core/popper.min.js}"></script>
+<script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
+
+<!-- jQuery Scrollbar -->
+<script th:src="@{/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js}"></script>
+
+<!-- Chart JS -->
+<script th:src="@{/assets/js/plugin/chart.js/chart.min.js}"></script>
+
+<!-- jQuery Sparkline -->
+<script th:src="@{/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js}"></script>
+
+<!-- Chart Circle -->
+<script th:src="@{/assets/js/plugin/chart-circle/circles.min.js}"></script>
+
+<!-- Datatables -->
+<script th:src="@{/assets/js/plugin/datatables/datatables.min.js}"></script>
+
+<!-- Bootstrap Notify -->
+<script th:src="@{/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js}"></script>
+
+<!-- jQuery Vector Maps -->
+<script th:src="@{/assets/js/plugin/jsvectormap/jsvectormap.min.js}"></script>
+<script th:src="@{/assets/js/plugin/jsvectormap/world.js}"></script>
+
+<!-- Google Maps Plugin -->
+<script th:src="@{/assets/js/plugin/gmaps/gmaps.js}"></script>
+
+<!-- Sweet Alert -->
+<script th:src="@{/assets/js/plugin/sweetalert/sweetalert.min.js}"></script>
+
+<!-- Kaiadmin JS -->
+<script th:src="@{/assets/js/kaiadmin.min.js}"></script>
+
+<!-- Kaiadmin DEMO methods, don't include it in your project! -->
+<script th:src="@{/assets/js/setting-demo2.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let tabCount = 0;
+
+        $('#addInvoice').click(function() {
+            tabCount++;
+            const tabId = 'tab' + tabCount;
+            const tabButton = `<li class="nav-item"><a class="nav-link" id="${tabId}-tab" data-toggle="tab" href="#${tabId}" role="tab">Hóa đơn ${tabCount}</a></li>`;
+            const tabContent = `
+                <div class="tab-pane fade" id="${tabId}" role="tabpanel">
+                    <p>Nội dung hóa đơn ${tabCount}</p>
+                    <button class="btn btn-primary select-product" data-tab="${tabId}">Chọn sản phẩm</button>
+                </div>
+            `;
+
+            $('#tabButtons').append(tabButton);
+            $('#tabContents').append(tabContent);
+
+            $('.nav-link').removeClass('active');
+            $('.tab-pane').removeClass('show active');
+
+            $(`#${tabId}-tab`).addClass('active');
+            $(`#${tabId}`).addClass('show active');
+        });
+
+        $(document).on('click', '.nav-link', function() {
+            $('.nav-link').removeClass('active');
+            $('.tab-pane').removeClass('show active');
+
+            $(this).addClass('active');
+            const activeTab = $(this).attr('href');
+            $(activeTab).addClass('show active');
+        });
+
+        $(document).on('click', '.select-product', function() {
+            const tabId = $(this).data('tab');
+            // Thực hiện các hành động khi click vào nút "Chọn sản phẩm" trong tab này
+            alert(`Bạn đang chọn sản phẩm trong hóa đơn ${tabId}`);
+            // Ví dụ: mở một modal hoặc điều hướng đến trang chọn sản phẩm
+        });
+    });
+</script>
+</body>
+</html>

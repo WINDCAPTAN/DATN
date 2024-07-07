@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head"></div>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar"></div>
+    <!-- End Sidebar -->
+
+    <div class="main-panel">
+        <div class="main-header">
+            <div class="main-header-logo">
+                <!-- Logo Header -->
+                <div class="logo-header" data-background-color="dark">
+                    <a href="../index.html" class="logo">
+                        <img
+                                th:src="@{/assets/img/kaiadmin/logo_light.svg}"
+                                alt="navbar brand"
+                                class="navbar-brand"
+                        />
+                    </a>
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle toggle-sidebar">
+                            <i class="gg-menu-right"></i>
+                        </button>
+                        <button class="btn btn-toggle sidenav-toggler">
+                            <i class="gg-menu-left"></i>
+                        </button>
+                    </div>
+                    <button class="topbar-toggler more">
+                        <i class="gg-more-vertical-alt"></i>
+                    </button>
+                </div>
+                <!-- End Logo Header -->
+            </div>
+            <!-- Navbar Header -->
+            <div th:replace="fragments/topbar"></div>
+            <!-- End Navbar -->
+        </div>
+        <!--Nội Dung-->
+        <div class="container">
+            <div class="page-inner">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Danh Sách Sản Phẩm</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addSanPhamModal">Thêm Sản Phẩm</a>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <form th:action="@{/san-pham}" method="get" class="form-inline float-right">
+                                            <div class="form-group mr-2">
+                                                <label for="ten" class="mr-2">Tên sản phẩm:</label>
+                                                <input type="text" id="ten" name="ten" class="form-control">
+                                            </div>
+                                            <div class="form-group mr-2">
+                                                <label for="trangThai" class="mr-2">Trạng thái:</label>
+                                                <select id="trangThai" name="trangThai" class="form-control">
+                                                    <option value="true">Đang hoạt động</option>
+                                                    <option value="false">Ngừng hoạt động</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                               cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                               style="width: 100%;">
+                                            <thead>
+                                            <tr>
+                                                <th rowspan="1" colspan="1">STT</th>
+                                                <th rowspan="1" colspan="1">Mã Sản Phẩm</th>
+                                                <th rowspan="1" colspan="1">Tên Sản Phẩm</th>
+                                                <th rowspan="1" colspan="1">Số Lượng Tồn</th>
+                                                <th rowspan="1" colspan="1">Trạng Thái</th>
+                                                <th rowspan="1" colspan="1">Ngày Thêm</th>
+                                                <th rowspan="1" colspan="1">Hành Động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="listSP: ${listSP.content}">
+                                                <td th:text="${listSP.id}"></td>
+                                                <td th:text="${listSP.ma}"></td>
+                                                <td th:text="${listSP.ten}"></td>
+                                                <td th:text="${listSP.soLuong}"></td>
+                                                <td th:text="${listSP.trangThai ? 'Đang Bán':'Ngừng Bán'}"></td>
+                                                <td th:text="${listSP.ngayTao}"></td>
+                                                <td>
+                                                    <a th:href="@{'/san-pham/add-chitiet/' + ${listSP.id}}" class="btn btn-success">+</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-7">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item" th:classappend="${trangHienTai == 0} ? 'disabled'">
+                                                    <a class="page-link" th:href="@{/san-pham(p=${trangHienTai - 1})}" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item" th:each="i : ${#numbers.sequence(0, tongSoTrang - 1)}"
+                                                    th:classappend="${i == trangHienTai} ? 'active'">
+                                                    <a class="page-link" th:href="@{/san-pham(p=${i})}" th:text="${i + 1}">1</a>
+                                                </li>
+                                                <li class="page-item" th:classappend="${trangHienTai == tongSoTrang - 1} ? 'disabled'">
+                                                    <a class="page-link" th:href="@{/san-pham(p=${trangHienTai + 1})}" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="addSanPhamModal" tabindex="-1" role="dialog" aria-labelledby="addSanPhamModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addSanPhamModalLabel">Thêm Sản Phẩm Mới</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="addSanPhamForm" th:action="@{/san-pham/add}" method="post">
+                                    <div class="form-group">
+                                        <label for="maSanPham">Mã Sản Phẩm:</label>
+                                        <input type="text" class="form-control" id="maSanPham" name="ma" placeholder="Nhập mã sản phẩm">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tenSanPham">Tên Sản Phẩm:</label>
+                                        <input type="text" class="form-control" id="tenSanPham" name="ten" placeholder="Nhập tên sản phẩm">
+                                    </div>
+                                    <!-- Các trường dữ liệu khác nếu cần -->
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Thêm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments/footer"></div>
+    </div>
+
+    <!-- Custom template | don't include it in your project! -->
+
+    <!-- End Custom template -->
+</div>
+<!--   Core JS Files   -->
+<script th:src="@{/assets/js/core/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/assets/js/core/popper.min.js}"></script>
+<script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
+
+<!-- jQuery Scrollbar -->
+<script th:src="@{/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js}"></script>
+
+<!-- Chart JS -->
+<script th:src="@{/assets/js/plugin/chart.js/chart.min.js}"></script>
+
+<!-- jQuery Sparkline -->
+<script th:src="@{/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js}"></script>
+
+<!-- Chart Circle -->
+<script th:src="@{/assets/js/plugin/chart-circle/circles.min.js}"></script>
+
+<!-- Datatables -->
+<script th:src="@{/assets/js/plugin/datatables/datatables.min.js}"></script>
+
+<!-- Bootstrap Notify -->
+<script th:src="@{/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js}"></script>
+
+<!-- jQuery Vector Maps -->
+<script th:src="@{/assets/js/plugin/jsvectormap/jsvectormap.min.js}"></script>
+<script th:src="@{/assets/js/plugin/jsvectormap/world.js}"></script>
+
+<!-- Google Maps Plugin -->
+<script th:src="@{/assets/js/plugin/gmaps/gmaps.js}"></script>
+
+<!-- Sweet Alert -->
+<script th:src="@{/assets/js/plugin/sweetalert/sweetalert.min.js}"></script>
+
+<!-- Kaiadmin JS -->
+<script th:src="@{/assets/js/kaiadmin.min.js}"></script>
+
+<!-- Kaiadmin DEMO methods, don't include it in your project! -->
+<script th:src="@{/assets/js/setting-demo2.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
