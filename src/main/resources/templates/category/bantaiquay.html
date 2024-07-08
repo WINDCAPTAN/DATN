@@ -54,13 +54,64 @@
             <div class="page-inner">
                 <div class="row mt-5">
                     <div class="col-md-8">
-                        <button id="addInvoice" class="btn btn-primary mt-3">Thêm hóa đơn</button>
-                        <ul class="nav nav-tabs" id="tabButtons">
-                            <!-- Các tab button sẽ được thêm vào đây -->
-                        </ul>
-                        <div class="tab-content" id="tabContents">
-                            <!-- Nội dung các tab sẽ được thêm vào đây -->
-                        </div>
+                       <label>Hóa đơn</label>   <button>  Thêm hóa đơn</button>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã HĐ</th>
+                                <th scope="col">Khách hàng</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </table>
+                        <label>Giỏ hàng</label>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </table>
+                        <label>Sản phẩm</label>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Màu sắc</th>
+                                <th scope="col">Kích cỡ</th>
+                                <th scope="col">Kiểu dáng</th>
+                                <th scope="col">Số lượng tồn</th>
+                                <th scope="col">Giá bán</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-md-4">
                         <form id="invoiceForm">
@@ -150,47 +201,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
-        let tabCount = 0;
-
-        $('#addInvoice').click(function() {
-            tabCount++;
-            const tabId = 'tab' + tabCount;
-            const tabButton = `<li class="nav-item"><a class="nav-link" id="${tabId}-tab" data-toggle="tab" href="#${tabId}" role="tab">Hóa đơn ${tabCount}</a></li>`;
-            const tabContent = `
-                <div class="tab-pane fade" id="${tabId}" role="tabpanel">
-                    <p>Nội dung hóa đơn ${tabCount}</p>
-                    <button class="btn btn-primary select-product" data-tab="${tabId}">Chọn sản phẩm</button>
-                </div>
-            `;
-
-            $('#tabButtons').append(tabButton);
-            $('#tabContents').append(tabContent);
-
-            $('.nav-link').removeClass('active');
-            $('.tab-pane').removeClass('show active');
-
-            $(`#${tabId}-tab`).addClass('active');
-            $(`#${tabId}`).addClass('show active');
-        });
-
-        $(document).on('click', '.nav-link', function() {
-            $('.nav-link').removeClass('active');
-            $('.tab-pane').removeClass('show active');
-
-            $(this).addClass('active');
-            const activeTab = $(this).attr('href');
-            $(activeTab).addClass('show active');
-        });
-
-        $(document).on('click', '.select-product', function() {
-            const tabId = $(this).data('tab');
-            // Thực hiện các hành động khi click vào nút "Chọn sản phẩm" trong tab này
-            alert(`Bạn đang chọn sản phẩm trong hóa đơn ${tabId}`);
-            // Ví dụ: mở một modal hoặc điều hướng đến trang chọn sản phẩm
-        });
-    });
-</script>
 </body>
 </html>
