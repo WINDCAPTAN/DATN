@@ -9,9 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "ChiTietSanPham")
 @Entity
+@Builder
 public class SanPhamChiTiet {
 
     @Id
@@ -30,7 +33,7 @@ public class SanPhamChiTiet {
     private Long id;
 
     @Column(name = "GiaBan")
-    private Double giaBan;
+    private Long giaBan;
 
     @Column(name = "SoLuong")
     private Integer soLuong;
@@ -45,25 +48,40 @@ public class SanPhamChiTiet {
     private String hinhAnh;
 
     @Column(name = "TrangThai")
-    private Boolean trangThai;
+    private int trangThai;
 
     @Column(name = "NgayTao")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngayTao;
 
     @Column(name = "NgaySua")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySua;
 
     @ManyToOne
-    @JoinColumn(name = "ID_KichCo")
+    @JoinColumn(name = "IDKichCo")
     private KichCo kichCo;
 
     @ManyToOne
-    @JoinColumn(name = "ID_MauSac")
+    @JoinColumn(name = "IDMauSac")
     private MauSac mauSac;
 
+//    @ManyToOne
+//    @JoinColumn(name = "IDThuongHieu")
+//    private ThuongHieu thuongHieu;
+
+//    @ManyToOne()
+//    @JoinColumn(name = "IDTayAo")
+//    private
+
     @ManyToOne
-    @JoinColumn(name = "ID_SanPham")
+    @JoinColumn(name = "IDSanPham")
     private SanPham sanPham;
 
-
+    @ManyToOne
+    @JoinColumn(name = "IDTayAo")
+    private TayAo tayAo;
+    @ManyToOne
+    @JoinColumn(name = "IDChatLieu")
+    private ChatLieu chatLieu;
 }

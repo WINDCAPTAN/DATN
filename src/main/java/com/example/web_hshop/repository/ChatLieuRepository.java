@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ChatLieuRepository extends JpaRepository<ChatLieu,Long> {
-    List<ChatLieu> findAllByOrderByNgayTaoDesc();
+//    List<ChatLieu> findAllByOrderByNgayTaoDesc();
 }

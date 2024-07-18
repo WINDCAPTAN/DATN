@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet,Long> {
-    List<SanPhamChiTiet> findBySanPham(SanPham sanPham);
+public interface ChiTietSanPhamRepository extends JpaRepository<SanPhamChiTiet,Long> {
+//    List<SanPhamChiTiet> findBySanPham(SanPham sanPham);
+//    List<SanPhamChiTiet> fillAllCtspOneSanPham();
+
 }

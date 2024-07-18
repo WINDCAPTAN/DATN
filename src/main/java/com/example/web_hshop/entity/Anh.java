@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,20 +15,16 @@ import java.sql.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "KichCo")
+@NoArgsConstructor
 @Entity
-@Builder
-public class KichCo {
-
+@Table(name = "Anh")
+public class Anh {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
-//    @Column(name = "Ma")
-//    private String ma;
     @Column(name = "Ten")
     private String ten;
 
@@ -38,7 +33,10 @@ public class KichCo {
 
     @Column(name = "NgayTao")
     private Date ngayTao;
+
     @Column(name = "NgaySua")
     private Date ngaySua;
 
+    @Column(name = "url")
+    private String url;
 }
