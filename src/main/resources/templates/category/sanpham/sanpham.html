@@ -1,6 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/head"></div>
+<style>
+    #gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    #gallery img {
+        width: 150px;
+        height: auto;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+    .img-container {
+        position: relative;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .img {
+        max-width: 100px;
+        max-height: 100px;
+        margin-bottom: 5px;
+    }
+
+    .delete-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+</style>
 <body>
 <div class="wrapper">
     <!-- Sidebar -->
@@ -94,6 +134,8 @@
                                                 <td th:text="${listSP.ngayTao}"></td>
                                                 <td>
                                                     <a th:href="@{'/san-pham/add-chitiet/' + ${listSP.id}}" class="btn btn-success">+</a>
+                                                    <a th:href="@{'/san-pham/view-update/' + ${listSP.id}}" class="btn btn-success">Update</a>
+
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -146,7 +188,31 @@
                                         <label for="tenSanPham">Tên Sản Phẩm:</label>
                                         <input type="text" class="form-control" id="tenSanPham" name="ten" placeholder="Nhập tên sản phẩm">
                                     </div>
-                                    <!-- Các trường dữ liệu khác nếu cần -->
+                                    <div class="form-group mr-2">
+                                        <select class="form-select" aria-label="Default select example" name="nhaSX">
+                                            <option selected value="">Chọn NSX</option>
+                                            <option th:each="listNSX : ${listNSX}" th:value="${listNSX.id}" th:text="${listNSX.ten}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mr-2">
+                                        <select class="form-select" aria-label="Default select example" name="thuongHieu">
+                                            <option selected value="">Chọn Thương Hiệu</option>
+                                            <option th:each="listTH : ${listTH}" th:value="${listTH.id}" th:text="${listTH.ten}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label"><span class="dau-sao">*</span>Ảnh:</label>
+                                        <div id="drop--area">
+                                            <label for="file--input" class="button-img">
+                                                Chọn ảnh <i class="fas fa-image"></i>
+                                            </label>
+                                            <div class="img-them">
+                                                <input type="file" id="file--input" multiple accept="image/*" name="fileImage" onchange="handleFiles(this.files)">
+                                                <div id="gallery"></div>
+                                            </div>
+                                            <span class="check-loi" id="error-msg"></span>
+                                        </div>
+                                    </div>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
                                     <button type="submit" class="btn btn-primary">Thêm</button>
                                 </form>
@@ -205,5 +271,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script th:src="@{/assets/js/main.js}"></script>
 </body>
 </html>
