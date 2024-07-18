@@ -25,9 +25,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "SanPham")
 @Entity
+@Builder
 public class SanPham {
 
     @Id
@@ -53,9 +53,11 @@ public class SanPham {
     @Column(name = "NgaySua")
     private Date ngaySua;
 
+
     @ManyToOne
     @JoinColumn(name = "IDNsx")
     private NhaSX nhaSX;
+
 
     @ManyToOne
     @JoinColumn(name = "IDThuongHieu")
@@ -63,4 +65,11 @@ public class SanPham {
 
     @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
     private List<HinhAnh> listHinhAnhSanPham = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sanPham")
+    private List<SanPhamChiTiet> chiTietSanPhams;
+
+    public void updateSoLuong() {
+        this.soLuong = chiTietSanPhams.stream().mapToInt(SanPhamChiTiet::getSoLuong).sum();
+    }
 }

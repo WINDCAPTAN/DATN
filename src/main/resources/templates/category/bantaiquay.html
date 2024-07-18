@@ -99,17 +99,25 @@
                                 <th scope="col">Tên sản phẩm</th>
                                 <th scope="col">Màu sắc</th>
                                 <th scope="col">Kích cỡ</th>
-                                <th scope="col">Kiểu dáng</th>
+<!--                                <th scope="col">Kiểu dáng</th>-->
                                 <th scope="col">Số lượng tồn</th>
                                 <th scope="col">Giá bán</th>
+
+                                <th scope="col">Hành động</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                            <tr th:each="s,iterStat : ${spct}">
+                                <td th:text="${iterStat.count}"></td>
+                                <td th:text="${s.sanPham.ten}"></td>
+                                <td th:text="${s.mauSac.ten}"></td>
+                                <td th:text="${s.kichCo.ten}"></td>
+                                <td th:text="${s.soLuong}"></td>
+                                <td th:text="${s.giaBan}"></td>
+                                <td>
+                                    <button class="btn btn-success" >Thêm</button>
+                                </td>
+
                             </tr>
                         </table>
                     </div>

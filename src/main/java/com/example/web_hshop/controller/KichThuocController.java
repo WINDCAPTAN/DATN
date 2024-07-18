@@ -1,7 +1,7 @@
 package com.example.web_hshop.controller;
 
 import com.example.web_hshop.entity.KichCo;
-import com.example.web_hshop.repository.KichThuocRepository;
+import com.example.web_hshop.repository.KichCoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class KichThuocController {
 
     @Autowired
-    private KichThuocRepository kichThuocRepo;
+    private KichCoRepository kichThuocRepo;
 
     @GetMapping("/kich-thuoc")
     public String hienThi(Model model){

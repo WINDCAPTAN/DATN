@@ -18,24 +18,23 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "MauSac")
+@Table(name = "TayAo")
 @Entity
 @Builder
-public class MauSac {
-
+public class TayAo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Long id;
 
-    @Column (name = "Ma")
-    private String ma;
-
     @Column(name = "Ten")
     private String ten;
 
+    @Column(name = "Ma")
+    private String ma;
+
     @Column(name = "TrangThai")
-    private Boolean trangThai;
+    private boolean trangThai;
 
     @Column(name = "NgayTao")
     private Date ngayTao;
