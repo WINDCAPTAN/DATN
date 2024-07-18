@@ -30,7 +30,7 @@ public class ChatLieu {
     private String ten;
 
     @Column(name = "TrangThai")
-    private boolean trangThai;
+    private Boolean trangThai;
 
     @Column(name = "NgayTao")
     private Date ngayTao;

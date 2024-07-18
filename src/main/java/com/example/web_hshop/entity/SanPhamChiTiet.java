@@ -45,7 +45,7 @@ public class SanPhamChiTiet {
     private String hinhAnh;
 
     @Column(name = "TrangThai")
-    private boolean trangThai;
+    private Boolean trangThai;
 
     @Column(name = "NgayTao")
     private Date ngayTao;

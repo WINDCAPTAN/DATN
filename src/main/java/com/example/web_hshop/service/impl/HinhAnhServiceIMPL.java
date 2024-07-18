@@ -1,6 +1,7 @@
 package com.example.web_hshop.service.impl;
 
 import com.example.web_hshop.entity.HinhAnh;
+
 import com.example.web_hshop.entity.SanPham;
 import com.example.web_hshop.repository.HinhAnhRepository;
 import com.example.web_hshop.service.HinhAnhService;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class HinhAnhIMPL implements HinhAnhService {
+public class HinhAnhServiceIMPL implements HinhAnhService {
 
     @Autowired
     private HinhAnhRepository hinhAnhRepo;
@@ -51,7 +52,7 @@ public class HinhAnhIMPL implements HinhAnhService {
                     hinhAnh.setNgayTao(currentDate);
                     hinhAnh.setNgaySua(currentDate);
                     hinhAnh.setTrangThai(false);
-//                    hinhAnh.setSanPham(SanPham.builder().id(id).build());
+                    hinhAnh.setSanPham(SanPham.builder().id(id).build());
                     // Thực hiện các tác vụ khác nếu cần thiết
                     hinhAnhRepo.save(hinhAnh);
                 } catch (Exception e) {
@@ -64,7 +65,9 @@ public class HinhAnhIMPL implements HinhAnhService {
 
     @Override
     public List<HinhAnh> listHinhAnh(Long id) {
-        return null;
+
+        return hinhAnhRepo.fillAllByIdSp(id);
+
     }
 
     @Override

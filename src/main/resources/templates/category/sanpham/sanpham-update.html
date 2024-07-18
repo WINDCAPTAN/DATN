@@ -1,6 +1,107 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/head"></div>
+<head>
+    <div th:replace="fragments/head"></div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #gallery img {
+            width: 150px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .img-container {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-bottom: 5px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .dau-sao {
+            color: red;
+        }
+
+        #drop--area {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .button-img {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #85a3ba;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button-img i {
+            margin-right: 0.5rem;
+        }
+
+        .img-them {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        #file--input {
+            display: none;
+        }
+
+        #gallery {
+            margin-top: 1rem;
+        }
+
+        .check-loi {
+            color: red;
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        .form-check-label {
+            margin-left: 20px; /* Điều chỉnh giá trị này để thay đổi khoảng cách */
+        }
+    </style>
+</head>
 <body>
 <div class="wrapper">
     <!-- Sidebar -->
@@ -12,12 +113,8 @@
             <div class="main-header-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="../index.html" class="logo">
-                        <img
-                                th:src="@{/assets/img/kaiadmin/logo_light.svg}"
-                                alt="navbar brand"
-                                class="navbar-brand"
-                        />
+                    <a href="../../index.html" class="logo">
+                        <img th:src="@{/assets/img/kaiadmin/logo_light.svg}" alt="navbar brand" class="navbar-brand" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -40,44 +137,64 @@
         <!--Nội Dung-->
         <div class="container">
             <div class="page-inner">
-                <form id="addSanPhamForm" th:action="@{/san-pham/update}" method="post">
-                    <input type="hidden" name="id" th:value="${sanpham.id}" />
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <form id="addSanPhamForm" th:action="@{/san-pham/update}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:value="${listUD.id}"/>
 
-                    <div class="form-group">
-                        <label for="maSanPham">Mã Sản Phẩm:</label>
-                        <input type="text" class="form-control" id="maSanPham" name="ma" placeholder="Nhập mã sản phẩm" th:value="${sanpham.ma}" >
+                            <div class="mb-3">
+                                <label for="maSanPham">Mã Sản Phẩm:</label>
+                                <input type="text" class="form-control" id="maSanPham" name="ma" th:value="${listUD.ma}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tenSanPham">Tên Sản Phẩm:</label>
+                                <input type="text" class="form-control" id="tenSanPham" name="ten" th:value="${listUD.ten}">
+                            </div>
+                            <div class="mb-3">
+                                <label>Trạng Thái</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Đang Hoạt Động
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Ngừng Hoạt Động
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example" name="nhaSX">
+                                    <option selected value="">Chọn NSX</option>
+                                    <option th:each="listNSX : ${listNSX}" th:value="${listNSX.id}" th:text="${listNSX.ten}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <select class="form-select" aria-label="Default select example" name="thuongHieu">
+                                    <option selected value="">Chọn Thương Hiệu</option>
+                                    <option th:each="listTH : ${listTH}" th:value="${listTH.id}" th:text="${listTH.ten}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><span class="dau-sao">*</span>Ảnh:</label>
+                                <div id="drop--area">
+                                    <label for="file--input" class="button-img">
+                                        <i class="fas fa-image"></i> Chọn ảnh
+                                    </label>
+                                    <div class="img-them">
+                                        <input type="file" id="file--input" multiple accept="image/*" name="files" onchange="handleFiles(this.files)">
+                                        <div id="gallery"></div>
+                                    </div>
+                                    <span class="check-loi" id="error-msg"></span>
+                                </div>
+                            </div>
+                            <a th:href="@{/san-pham}" type="button" class="btn btn-danger">Đóng</a>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="tenSanPham">Tên Sản Phẩm:</label>
-                        <input type="text" class="form-control" id="tenSanPham" name="ten" placeholder="Nhập tên sản phẩm"  th:value="${sanpham.ten}">
-                    </div>
-                    <div class="form-group mr-2">
-                        <select class="form-select" aria-label="Default select example" name="nhaSX">
-                            <option selected value="">Chọn NSX</option>
-                            <option th:selected="${sanpham.nhaSX.ten == listNSX.ten}" th:each="listNSX : ${listNSX}" th:value="${listNSX.id}" th:text="${listNSX.ten}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group mr-2">
-                        <select class="form-select" aria-label="Default select example" name="thuongHieu">
-                            <option selected value="">Chọn Thương Hiệu</option>
-                            <option th:selected="${sanpham.thuongHieu.ten == listTH.ten}" th:each="listTH : ${listTH}" th:value="${listTH.id}" th:text="${listTH.ten}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group mr-2">
-                        <select class="form-select" aria-label="Default select example" name="chatLieu">
-                            <option selected value="">Chọn Chất Liệu</option>
-                            <option th:selected="${sanpham.chatLieu.ten == listCL.ten}" th:each="listCL : ${listCL}" th:value="${listCL.id}" th:text="${listCL.ten}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group mr-2">
-                        <select class="form-select" aria-label="Default select example" name="kieuDang">
-                            <option selected value="">Chọn Kiểu Dáng</option>
-                            <option th:selected="${sanpham.kieuDang.ten == listKD.ten}" th:each="listKD : ${listKD}" th:value="${listKD.id}" th:text="${listKD.ten}"></option>
-                        </select>
-                    </div>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -89,42 +206,47 @@
     <!-- End Custom template -->
 </div>
 <!--   Core JS Files   -->
-<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
+<script th:src="@{/assets/js/core/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/assets/js/core/popper.min.js}"></script>
+<script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
 
 <!-- jQuery Scrollbar -->
-<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script th:src="@{/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js}"></script>
 
 <!-- Chart JS -->
-<script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+<script th:src="@{/assets/js/plugin/chart.js/chart.min.js}"></script>
 
 <!-- jQuery Sparkline -->
-<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<script th:src="@{/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js}"></script>
 
 <!-- Chart Circle -->
-<script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
+<script th:src="@{/assets/js/plugin/chart-circle/circles.min.js}"></script>
 
 <!-- Datatables -->
-<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+<script th:src="@{/assets/js/plugin/datatables/datatables.min.js}"></script>
 
 <!-- Bootstrap Notify -->
-<script src="../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script th:src="@{/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js}"></script>
 
 <!-- jQuery Vector Maps -->
-<script src="../assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-<script src="../assets/js/plugin/jsvectormap/world.js"></script>
+<script th:src="@{/assets/js/plugin/jsvectormap/jsvectormap.min.js}"></script>
+<script th:src="@{/assets/js/plugin/jsvectormap/world.js}"></script>
 
 <!-- Google Maps Plugin -->
-<script src="../assets/js/plugin/gmaps/gmaps.js"></script>
+<script th:src="@{/assets/js/plugin/gmaps/gmaps.js}"></script>
 
 <!-- Sweet Alert -->
-<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+<script th:src="@{/assets/js/plugin/sweetalert/sweetalert.min.js}"></script>
 
 <!-- Kaiadmin JS -->
-<script src="../assets/js/kaiadmin.min.js"></script>
+<script th:src="@{/assets/js/kaiadmin.min.js}"></script>
 
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-<script src="../assets/js/setting-demo2.js"></script>
+<script th:src="@{/assets/js/setting-demo2.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script th:src="@{/assets/js/main.js}"></script>
 </body>
 </html>
