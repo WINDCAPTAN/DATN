@@ -1,10 +1,8 @@
-package com.example.web_hshop.servie.Impl;
+package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.Nsx;
-import com.example.web_hshop.entity.TayAo;
 import com.example.web_hshop.repository.NsxRepository;
-import com.example.web_hshop.repository.TayAoRepstory;
-import com.example.web_hshop.servie.NsxService;
+import com.example.web_hshop.service.NsxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
-package com.example.web_hshop.servie.Impl;
+package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.ThuongHieu;
 import com.example.web_hshop.repository.ThuongHieuRepository;
-import com.example.web_hshop.servie.ThuongHieuService;
+import com.example.web_hshop.service.ThuongHieuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
