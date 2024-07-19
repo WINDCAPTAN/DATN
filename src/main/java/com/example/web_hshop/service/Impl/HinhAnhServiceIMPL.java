@@ -1,7 +1,6 @@
-package com.example.web_hshop.service.impl;
+package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.HinhAnh;
-
 import com.example.web_hshop.entity.SanPham;
 import com.example.web_hshop.repository.HinhAnhRepository;
 import com.example.web_hshop.service.HinhAnhService;

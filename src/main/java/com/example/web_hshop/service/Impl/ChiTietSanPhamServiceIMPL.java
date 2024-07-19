@@ -1,4 +1,4 @@
-package com.example.web_hshop.servie.Impl;
+package com.example.web_hshop.service.Impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +12,8 @@ import com.example.web_hshop.entity.SanPham;
 import com.example.web_hshop.entity.SanPhamChiTiet;
 import com.example.web_hshop.entity.TayAo;
 import com.example.web_hshop.repository.ChiTietSanPhamRepository;
-import com.example.web_hshop.servie.ChiTietSanPhamService;
+import com.example.web_hshop.service.ChiTietSanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;

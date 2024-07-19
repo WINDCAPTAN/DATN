@@ -1,4 +1,4 @@
-package com.example.web_hshop.service.impl;
+package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.ThuongHieu;
 import com.example.web_hshop.repository.ThuongHieuRepository;

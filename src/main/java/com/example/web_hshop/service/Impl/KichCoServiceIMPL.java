@@ -1,8 +1,8 @@
-package com.example.web_hshop.servie.Impl;
+package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.KichCo;
 import com.example.web_hshop.repository.KichCoRepository;
-import com.example.web_hshop.servie.KichCoService;
+import com.example.web_hshop.service.KichCoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

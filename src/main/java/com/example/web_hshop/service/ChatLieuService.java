@@ -1,7 +1,6 @@
-package com.example.web_hshop.servie;
+package com.example.web_hshop.service;
 
 import com.example.web_hshop.entity.ChatLieu;
-import com.example.web_hshop.entity.KichCo;
 
 import java.util.List;
 
