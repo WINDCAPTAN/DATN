@@ -3,7 +3,6 @@ package com.example.web_hshop.controller;
 import com.example.web_hshop.entity.SanPham;
 
 import com.example.web_hshop.entity.SanPhamChiTiet;
-import com.example.web_hshop.entity.ThuongHieu;
 import com.example.web_hshop.repository.ChatLieuRepository;
 import com.example.web_hshop.repository.ChiTietSanPhamRepository;
 import com.example.web_hshop.repository.KichCoRepository;

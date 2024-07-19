@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ThuongHieuService {
 
+
     List<ThuongHieu> getAll();
 
     ThuongHieu add(ThuongHieu thuongHieu);
@@ -15,4 +16,6 @@ public interface ThuongHieuService {
     void delete(Long id);
 
     ThuongHieu getById(Long id);
+
+
 }
