@@ -1,10 +1,8 @@
-package com.example.web_hshop.servie.Impl;
+package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.ChatLieu;
-import com.example.web_hshop.entity.KichCo;
-import com.example.web_hshop.entity.MauSac;
 import com.example.web_hshop.repository.ChatLieuRepository;
-import com.example.web_hshop.servie.ChatLieuService;
+import com.example.web_hshop.service.ChatLieuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
