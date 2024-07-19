@@ -48,8 +48,7 @@ public class SanPhamChiTiet {
     private String hinhAnh;
 
     @Column(name = "TrangThai")
-
-    private Boolean trangThai;
+    private Integer trangThai;
 
     @Column(name = "NgayTao")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -172,10 +172,8 @@
                                                 <th rowspan="1" colspan="1">Mã Sản Phẩm</th>
                                                 <th rowspan="1" colspan="1">Tên Sản Phẩm</th>
 <!--                                                <th rowspan="1" colspan="1">Số Lượng Tồn</th>-->
-
-                                                <th rowspan="1" colspan="1">Chất liệu</th>
-                                                <th rowspan="1" colspan="1">NSX</th>
-                                                <th rowspan="1" colspan="1">Thương hiệu</th>
+<!--                                                <th rowspan="1" colspan="1">NSX</th>-->
+<!--                                                <th rowspan="1" colspan="1">Thương hiệu</th>-->
                                                 <th rowspan="1" colspan="1">Ảnh</th>
                                                 <th rowspan="1" colspan="1">Trạng Thái</th>
                                                 <th rowspan="1" colspan="1">Ngày Thêm</th>
@@ -187,10 +185,9 @@
                                                 <td th:text="${listSP.id}"></td>
                                                 <td th:text="${listSP.ma}"></td>
                                                 <td th:text="${listSP.ten}"></td>
-                                                <td th:text="${listSP.chatLieu.ten}"></td>
-                                                <td th:text="${listSP.nsx.ten}"></td>
-                                                <td th:text="${listSP.thuongHieu.ten}"></td>
-                                                <td th:text="${listSP.anh.ten}"></td>
+<!--                                                <td th:text="${listSP.Nsx.ten}"></td>-->
+<!--                                                <td th:text="${listSP.thuongHieu.ten}"></td>-->
+<!--                                                <td th:text="${listSP.}"></td>-->
 <!--                                                <td th:text="${listSP.soLuong}"></td>-->
                                                 <td th:text="${listSP.trangThai ? 'Đang Bán':'Ngừng Bán'}"></td>
                                                 <td th:text="${listSP.ngayTao}"></td>
@@ -251,17 +248,6 @@
                                             <span class="check-loi" id="error-msg"></span>
                                         </div>
                                     </div>
-<<<<<<< HEAD:src/main/resources/templates/category/sanpham/sanpham.html
-=======
-                                    <div class="form-group col-md-6">
-                                        <label for="exampleFormControlSelect2">Chất liệu</label>
-                                        <select class="form-select" id="exampleFormControlSelect2" name="chatLieu">
-                                            <option th:each="listCL : ${listCL}" th:value="${listCL.id}"
-                                                    th:text="${listCL.ten}"></option>
-                                        </select>
-                                    </div>
-                                    <!-- Các trường dữ liệu khác nếu cần -->
->>>>>>> b06975280a101dc91f24b99f197f985d323b53e5:src/main/resources/templates/category/sanpham.html
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
                                     <button type="submit" class="btn btn-primary">Thêm</button>
                                 </form>
