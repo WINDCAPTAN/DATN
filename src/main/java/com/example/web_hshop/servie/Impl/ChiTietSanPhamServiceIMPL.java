@@ -94,4 +94,40 @@ public class ChiTietSanPhamServiceIMPL implements ChiTietSanPhamService {
         }
         return chiTietSanPhamList;
     }
+
+    @Override
+    public List<SanPhamChiTiet> updateAllCtsp(
+            List<String> listIdChiTietSp, List<String> listSanPham,
+            List<String> listKichCo, List<String> listMauSac,
+            List<String> listTayAo, List<String> listTrangThai,
+            List<String> listChatLieu, List<String> listSoLuong, List<String> listDonGia) {
+        SanPhamChiTiet chiTietSanPhamNew = this.getById(Long.valueOf(listIdChiTietSp.get(0)));
+        List<SanPhamChiTiet> chiTietSanPhamList = new ArrayList<>();
+        for (int i = 0; i < listSanPham.size(); i++) {
+            SanPhamChiTiet chiTietSanPham = new SanPhamChiTiet();
+            chiTietSanPham.setId(Long.valueOf(listIdChiTietSp.get(i)));
+            chiTietSanPham.setSanPham(SanPham.builder().id(Long.valueOf(listSanPham.get(i))).build());
+            chiTietSanPham.setKichCo(KichCo.builder().id(Long.valueOf(listKichCo.get(i))).build());
+            chiTietSanPham.setMauSac(MauSac.builder().id(Long.valueOf(listMauSac.get(i))).build());
+            chiTietSanPham.setTayAo(TayAo.builder().id(Long.valueOf(listTayAo.get(i))).build());
+            chiTietSanPham.setChatLieu(ChatLieu.builder().id(Long.valueOf(listChatLieu.get(i))).build());
+            chiTietSanPham.setTrangThai(Integer.parseInt(listTrangThai.get(i)));
+            chiTietSanPham.setSoLuong(Integer.parseInt(listSoLuong.get(i)));
+            chiTietSanPham.setNgayTao(chiTietSanPhamNew.getNgayTao());
+            chiTietSanPham.setNgaySua(chiTietSanPhamNew.getNgaySua());
+            SanPhamChiTiet savedChiTietSanPham = chiTietSanPhamRepository.save(chiTietSanPham);
+            chiTietSanPhamList.add(savedChiTietSanPham);
+        }
+        return chiTietSanPhamList;
+    }
+
+    @Override
+    public SanPhamChiTiet update(SanPhamChiTiet sanPham) {
+        return chiTietSanPhamRepository.save(sanPham);
+    }
+
+    @Override
+    public SanPhamChiTiet getById(Long id) {
+        return chiTietSanPhamRepository.findById(id).get();
+    }
 }

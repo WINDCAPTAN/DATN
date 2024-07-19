@@ -20,4 +20,11 @@ public class SanPhamServiceIPML implements SanPhamService {
     public List<SanPham> getAll(){
         return sanPhamRepository.findAll();
     }
+
+    @Override
+    public SanPham getById(Long id) {
+
+        return sanPhamRepository.findById(id).get();
+
+    }
 }
