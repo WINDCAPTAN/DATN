@@ -1,6 +1,9 @@
 package com.example.web_hshop.controller;
 
 import com.example.web_hshop.entity.SanPham;
+
+import com.example.web_hshop.entity.SanPhamChiTiet;
+import com.example.web_hshop.entity.ThuongHieu;
 import com.example.web_hshop.repository.ChatLieuRepository;
 import com.example.web_hshop.repository.ChiTietSanPhamRepository;
 import com.example.web_hshop.repository.KichCoRepository;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,5 +109,19 @@ public class ChiTietSanPhamController {
         attributes.addFlashAttribute("checkThongBao", "thanhCong");
         chiTietSanPhamService.add(listSanPham, listKichCo, listMauSac, listTayAo, listChatLieu, listSoLuong, listDonGia);
         return "redirect:/san-pham-chi-tiet";
+    }
+    @GetMapping("/view-update/{id}")
+    public String viewUpdate(
+            @PathVariable("id") Long id,
+            Model model
+    ) {
+
+        SanPham sanPham = sanPhamService.getById(id);
+        List<SanPhamChiTiet> listChiTietSP = chiTietSanPhamService.getAll();
+        model.addAttribute("sanPhamDetail", sanPham);
+        model.addAttribute("listChiTietSP", listChiTietSP);
+        model.addAttribute("listTA", tayAoService.getAll());
+        model.addAttribute("listCL", chatLieuService.getAll());
+        return "/category/sanphamct/suasanphamchitiet";
     }
 }

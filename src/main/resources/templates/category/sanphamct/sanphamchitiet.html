@@ -70,7 +70,7 @@
                                                         <tr>
                                                             <th rowspan="1" colspan="1">STT</th>
                                                             <th rowspan="1" colspan="1">Tên Sản Phẩm</th>
-                                                            <th rowspan="1" colspan="1">Tên thương hiệu</th>
+                                                            <th rowspan="1" colspan="1">Chất liệu</th>
                                                             <th rowspan="1" colspan="1">Kích cỡ</th>
                                                             <th rowspan="1" colspan="1">Màu sắc</th>
                                                             <th rowspan="1" colspan="1">Số Lượng</th>
@@ -91,7 +91,7 @@
                                                             <td class="trangthaidhd" th:if="${listSPCT.trangThai==1}">Đang Hoạt Động</td>
                                                             <td class="trangthainhd" th:if="${listSPCT.trangThai==0}">Ngừng Hoạt Động</td>
                                                             <td>
-                                                                <a th:href="@{'#' + ${listSPCT.id}}">Sửa</a>
+                                                                <a th:href="@{/san-pham-chi-tiet/view-update/{id} (id=${listSPCT.id})}">Sửa</a>
                                                             </td>
                                                         </tr>
                                                         </tbody>
