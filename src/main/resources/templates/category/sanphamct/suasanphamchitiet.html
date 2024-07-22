@@ -87,17 +87,17 @@
                           <label class="col-form-label">
                             <span class="dausao">*</span>Chất liệu:
                           </label>
-                          <!-- Kiểm tra nếu sanPhamDetail không null thì hiển thị giá trị, ngược lại hiển thị một giá trị mặc định hoặc không hiển thị gì cả -->
-<!--                          <input type="text" class="form-control"-->
-<!--                                 th:value="${sanPhamDetail != null ? sanPhamDetail.thuongHieu.ten : ''}"-->
-<!--                                 disabled>-->
-                          <select class="form-select" id="chatLieuSelect"
-                                  aria-label="Default select example">
-                            <option th:each="listCL:${listCL}" th:value="${listCL.id}"
-                                    th:label="${listCL.ten}"></option>
-                          </select>
-
+<!--                           Kiểm tra nếu sanPhamDetail không null thì hiển thị giá trị, ngược lại hiển thị một giá trị mặc định hoặc không hiển thị gì cả -->
+                          <input type="text" class="form-control"
+                                 th:value="${listCL != null ? listCL.ten : ''}"
+                                 disabled>
+<!--                          <select class="form-select" id="chatLieuSelect" disabled-->
+<!--                                  aria-label="Default select example">-->
+<!--                            <option th:each="listCL:${listCL}" th:value="${listCL.id}"-->
+<!--                                    th:label="${listCL.ten}"></option>-->
+<!--                          </select>-->
                         </div>
+
                         <div class="col-md-6">
                           <label class="col-form-label">
                             <span class="dausao">*</span>Ngày Tạo:
@@ -203,7 +203,7 @@
                             <tr>
                               <th scope="col">Kích Cỡ</th>
                               <th scope="col">Màu Sắc</th>
-                              <th scope="col">Loại Đế</th>
+                              <th scope="col">Chất liệu</th>
                               <th scope="col" style="width: 18%">Trạng Thái</th>
                               <th scope="col" style="width: 12%">Số Lượng</th>
                               <th scope="col" style="width: 17%">Đơn Giá</th>
@@ -237,23 +237,31 @@
                                 </select>
                               </td>
                               <td>
-                                <select class="form-control" name="listLoaiDe"
+                                <select class="form-control" name="listChatLieu"
                                         style="color: black; pointer-events: none; user-select: none; opacity: 0.6;"
                                         aria-label="Default select example">
-                                  <option th:value="${chiTietSanPham.loaiDe.id}"
-                                          th:label="${chiTietSanPham.loaiDe.ten}"></option>
+                                  <option th:value="${chiTietSanPham.chatLieu.id}"
+                                          th:label="${chiTietSanPham.chatLieu.ten}"></option>
                                 </select>
                               </td>
+<!--                              <td>-->
+<!--                                <select class="form-control" name="listLoaiDe"-->
+<!--                                        style="color: black; pointer-events: none; user-select: none; opacity: 0.6;"-->
+<!--                                        aria-label="Default select example">-->
+<!--                                  <option th:value="${chiTietSanPham.loaiDe.id}"-->
+<!--                                          th:label="${chiTietSanPham.loaiDe.ten}"></option>-->
+<!--                                </select>-->
+<!--                              </td>-->
                               <td>
-                                <style>
-                                  #selectTrangThai1 {
-                                    background-color: #4bff52;
-                                  }
+<!--                                <style>-->
+<!--                                  #selectTrangThai1 {-->
+<!--                                    background-color: #4bff52;-->
+<!--                                  }-->
 
-                                  #selectTrangThai2 {
-                                    background-color: #ff5959;
-                                  }
-                                </style>
+<!--                                  #selectTrangThai2 {-->
+<!--                                    background-color: #ff5959;-->
+<!--                                  }-->
+<!--                                </style>-->
                                 <select class="form-control listTrangThai"
                                         th:id="${chiTietSanPham.trangThai == 0} ? 'selectTrangThai1' : 'selectTrangThai2'"
                                         name="listTrangThai"
@@ -286,7 +294,7 @@
                               </td>
                               <td>
                                 <input type="number" class="form-control" min="0" name="listDonGia"
-                                       th:value="${chiTietSanPham.giaHienHanh}">
+                                       th:value="${chiTietSanPham.giaBan}">
                                 <div class="error-message" th:id="'checkDonGia' + ${iterStat.index}"
                                      style="display: none;color: #ff0000;font-size: 14px;font-weight: bold;"></div>
                               </td>

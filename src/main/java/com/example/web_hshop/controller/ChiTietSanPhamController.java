@@ -1,5 +1,6 @@
 package com.example.web_hshop.controller;
 
+import com.example.web_hshop.entity.ChatLieu;
 import com.example.web_hshop.entity.SanPham;
 
 import com.example.web_hshop.entity.SanPhamChiTiet;
@@ -116,11 +117,12 @@ public class ChiTietSanPhamController {
     ) {
 
         SanPham sanPham = sanPhamService.getById(id);
+        ChatLieu chatLieu = chatLieuService.getById(id);
         List<SanPhamChiTiet> listChiTietSP = chiTietSanPhamService.getAll();
         model.addAttribute("sanPhamDetail", sanPham);
         model.addAttribute("listChiTietSP", listChiTietSP);
         model.addAttribute("listTA", tayAoService.getAll());
-        model.addAttribute("listCL", chatLieuService.getAll());
+        model.addAttribute("listCL", chatLieu);
         return "/category/sanphamct/suasanphamchitiet";
     }
 }

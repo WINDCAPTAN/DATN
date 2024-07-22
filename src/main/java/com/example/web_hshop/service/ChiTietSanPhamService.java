@@ -21,4 +21,5 @@ List<SanPhamChiTiet> add(
 
     SanPhamChiTiet update(SanPhamChiTiet chiTietSanPham);
     SanPhamChiTiet getById(Long id);
+
 }

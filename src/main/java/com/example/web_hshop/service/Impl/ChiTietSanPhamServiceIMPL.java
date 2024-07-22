@@ -125,8 +125,11 @@ public class ChiTietSanPhamServiceIMPL implements ChiTietSanPhamService {
         return chiTietSanPhamRepository.save(sanPham);
     }
 
+
     @Override
     public SanPhamChiTiet getById(Long id) {
         return chiTietSanPhamRepository.findById(id).get();
     }
+
+
 }
