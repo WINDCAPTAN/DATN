@@ -114,7 +114,7 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="../../index.html" class="logo">
-                        <img th:src="@{/assets/img/kaiadmin/logo_light.svg}" alt="navbar brand" class="navbar-brand"/>
+                        <img th:src="@{/assets/img/kaiadmin/logo_light.svg}" alt="navbar brand" class="navbar-brand" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -139,71 +139,39 @@
             <div class="page-inner">
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <form id="updateSanPhamForm" th:action="@{/san-pham/update}" method="post"
-                              enctype="multipart/form-data">
+                        <form id="addChatLieuForm" th:action="@{/kich-thuoc/update}" method="post">
                             <input type="hidden" name="id" th:value="${listUD.id}"/>
-
+                            <!--                            <div class="mb-3">-->
+                            <!--                                <label for="maMauSac">Mã Màu Sắc:</label>-->
+                            <!--                                <input type="text" class="form-control" id="maMauSac" name="ma" th:value="${listUP.ma}">-->
+                            <!--                            </div>-->
                             <div class="mb-3">
-                                <label for="maSanPham">Mã Sản Phẩm:</label>
-                                <input type="text" class="form-control" id="maSanPham" name="ma"
-                                       th:value="${listUD.ma}">
+                                <label for="tenKichThuoc">Tên Kích Thước:</label>
+                                <input type="text" class="form-control" id="tenKichThuoc" name="ten" th:value="${listUD.ten}">
                             </div>
                             <div class="mb-3">
-                                <label for="tenSanPham">Tên Sản Phẩm:</label>
-                                <input type="text" class="form-control" id="tenSanPham" name="ten"
-                                       th:value="${listUD.ten}">
+                                <input  type="hidden" class="form-control" id="maKichThuoc" name="ma" th:value="${listUD.ma}" readonly>
                             </div>
                             <div class="mb-3">
                                 <label>Trạng Thái</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="trangThai" id="flexRadioDefault1"
-                                           th:value="true" th:checked="${listUD.trangThai}">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Đang Hoạt Động
+                                    <input class="form-check-input" type="radio" name="trangThai" th:value="true" th:checked="${listUD.trangThai}">
+                                    <label class="form-check-label">
+                                        Hoạt Động
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="trangThai" id="flexRadioDefault2"
-                                           th:value="false" th:checked="${!listUD.trangThai}">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Ngừng Hoạt Động
+                                    <input class="form-check-input" type="radio" name="trangThai" th:value="false" th:checked="${!listUD.trangThai}">
+                                    <label class="form-check-label">
+                                        Không Hoạt Động
                                     </label>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example" name="nhaSX">
-                                    <option value="" th:text="'Chọn NSX'" th:if="${listUD.nhaSX == null}"></option>
-                                    <option th:each="nsx : ${listNSX}" th:value="${nsx.id}" th:text="${nsx.ten}"
-                                            th:selected="${listUD.nhaSX?.id == nsx.id}"></option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example" name="thuongHieu">
-                                    <option value="" th:text="'Chọn Thương Hiệu'"
-                                            th:if="${listUD.thuongHieu == null}"></option>
-                                    <option th:each="th : ${listTH}" th:value="${th.id}" th:text="${th.ten}"
-                                            th:selected="${listUD.thuongHieu?.id == th.id}"></option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label"><span class="dau-sao">*</span>Ảnh:</label>
-                                <div id="drop--area">
-                                    <label for="file--input" class="button-img">
-                                        <i class="fas fa-image"></i> Chọn ảnh
-                                    </label>
-                                    <div class="img-them">
-                                        <input type="file" id="file--input" multiple accept="image/*" name="files"
-                                               onchange="handleFiles(this.files)">
-                                        <div id="gallery"></div>
-                                    </div>
-                                    <span class="check-loi" id="error-msg"></span>
-                                </div>
-                            </div>
-                            <a th:href="@{/san-pham}" type="button" class="btn btn-danger">Đóng</a>
-                            <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                            <a th:href="@{/kichthuoc}" type="button" class="btn btn-danger">Đóng</a>
+                            <button type="submit" class="btn btn-primary">Thêm</button>
+                            <button type="submit" class="btn btn-success" th:href="@{kichthuoc}">Trở Về</button>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
             <div class="main-header-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="../index.html" class="logo">
+                    <a href="../../index.html" class="logo">
                         <img
                                 th:src="@{/assets/img/kaiadmin/logo_light.svg}"
                                 alt="navbar brand"
@@ -40,17 +40,33 @@
         <!--Nội Dung-->
         <div class="container">
             <div class="page-inner">
-            <span class="border">
-                <h2>Danh Sách Chất Liệu</h2>
+                <span class="border">
+                <h2>Danh Sách Màu Sắc</h2>
                 <br>
                 <div class="row">
                     <div class="col-6">
-                        <form action="">
-                            <input type="text" placeholder="Tìm chất liệu theo tên...">
+                        <form th:action="@{/mau-sac}" method="get" class="mb-3">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label for="searchMauSac" class="form-label">Tên Màu Sắc</label>
+                                    <input type="text" class="form-control" id="searchMauSac" name="ten" th:value="${ten}"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="searchTrangThai" class="form-label">Trạng Thái</label>
+                                    <select class="form-control" id="searchTrangThai" name="trangThai">
+                                        <option th:value="${null}" th:text="'--- Chọn Trạng Thái ---'"></option>
+                                        <option th:value="true" th:text="'Hoạt Động'"></option>
+                                        <option th:value="false" th:text="'Ngừng Hoạt Động'"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 align-self-end">
+                                    <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="col-6">
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addChatLieuModal">Thêm Chất Liệu</a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMauSacModal">Thêm Màu Sắc</button>
                     </div>
                 </div>
                 <br>
@@ -58,49 +74,64 @@
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Tên Chất Liệu</th>
+                        <th scope="col">Tên Màu Sắc</th>
                         <th scope="col">Trạng Thái</th>
                         <th scope="col">Ngày Tạo</th>
                         <th scope="col">Hành Động</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="s,iterStat : ${listCL}">
-                        <td th:text="${iterStat.count}"></td>
-                        <td th:text="${s.ten}"></td>
-                        <td th:text="${s.trangThai ? 'Khả Dụng':'Không Khả Dụng'}"></td>
-                        <td th:text="${s.ngayTao}"></td>
+                    <tr th:each="s : ${listMS}">
+                        <td th:text="${mauSac.getId()}"></td>
+                        <td th:text="${mauSac.ten}"></td>
+                        <td th:text="${mauSac.trangThai ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
+                        <td th:text="${#dates.format(mauSac.ngayTao, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${mauSac.ngaySua != null ? #dates.format(mauSac.ngaySua, 'dd/MM/yyyy') : ''}"></td>
                         <td>
-                            <a th:href="@{'/chat-lieu/delete/' + ${s.id}}"
-                               onclick="return confirm('Bạn muốn chất liệu này đúng không ?')">Xóa</a>
+                            <a th:href="@{'/mau-sac/view-update/' +${s.id}}" class="btn btn-primary ">Update</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+
+                    <div class="pagination justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${trangHienTai == 0} ? 'disabled'">
+                            <a class="page-link" th:href="@{/mau-sac(page=${trangHienTai - 1}, ten=${ten}, trangThai=${trangThai})}">Trước</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, tongSoTrang - 1)}" th:classappend="${i == trangHienTai} ? 'active'">
+                            <a class="page-link" th:href="@{/mau-sac(page=${i}, ten=${ten}, trangThai=${trangThai})}" th:text="${i + 1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${trangHienTai + 1 == tongSoTrang} ? 'disabled'">
+                            <a class="page-link" th:href="@{/mau-sac(page=${trangHienTai + 1}, ten=${ten}, trangThai=${trangThai})}">Tiếp</a>
+                        </li>
+                    </ul>
+                </div>
+
                 </span>
             </div>
             <!-- /.container-fluid -->
-            <div class="modal fade" id="addChatLieuModal" tabindex="-1" role="dialog"
-                 aria-labelledby="addChatLieuModalLabel" aria-hidden="true">
+            <!-- Add Color Modal -->
+            <div class="modal fade" id="addMauSacModal" tabindex="-1" role="dialog" aria-labelledby="addColorModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addChatLieuModalLabel">Thêm Chất Liệu Mới</h5>
+                            <h5 class="modal-title" id="addColorModalLabel">Thêm Màu Sắc Mới</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- Form to add new Chat Lieu -->
-                            <form id="addChatLieuForm" th:action="@{/chat-lieu/add}" method="post">
+                            <!-- Form để thêm mới màu sắc -->
+                            <form id="addColorForm" th:action="@{/mau-sac/add}" method="post" th:object="${mauSac}">
+
                                 <div class="form-group">
-                                    <label for="tenChatLieu">Tên Chất Liệu:</label>
-                                    <input type="text" class="form-control" id="tenChatLieu" name="ten"
-                                           placeholder="Nhập tên chất liệu">
+                                    <label for="tenMauSac">Tên Màu Sắc:</label>
+                                    <input type="text" class="form-control" id="tenMauSac" name="ten" placeholder="Nhập tên màu sắc" >
                                 </div>
-                                <!-- Add other form fields if needed -->
+                                <!-- Các trường dữ liệu khác nếu cần -->
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                                <button type="submit" class="btn btn-primary">Thêm Chất Liệu</button>
+                                <button type="submit" class="btn btn-primary">Thêm Màu Sắc</button>
                             </form>
                         </div>
                     </div>
@@ -116,9 +147,9 @@
     <!-- End Custom template -->
 </div>
 <!--   Core JS Files   -->
-<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
+<script th:src="@{/assets/js/core/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/assets/js/core/popper.min.js}"></script>
+<script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
 
 <!-- jQuery Scrollbar -->
 <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
@@ -153,6 +184,7 @@
 
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
 <script src="../assets/js/setting-demo2.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

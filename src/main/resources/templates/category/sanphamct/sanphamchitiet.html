@@ -80,8 +80,8 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr th:each="listSPCT: ${listChiTietSP}">
-                                                            <td th:text="${listSPCT.id}"></td>
+                                                        <tr th:each="listSPCT, iterStat: ${listChiTietSP}">
+                                                            <td th:text="${iterStat.count}"></td>
                                                             <td th:text="${listSPCT.sanPham.ten}"></td>
                                                             <td th:text="${listSPCT.chatLieu.ten}"></td>
                                                             <td th:text="${listSPCT.kichCo.ten}"></td>

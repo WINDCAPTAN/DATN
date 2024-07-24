@@ -188,7 +188,12 @@
 <!--                                                <td th:text="${listSP.Nsx.ten}"></td>-->
 <!--                                                <td th:text="${listSP.thuongHieu.ten}"></td>-->
 <!--                                                <td th:text="${listSP.}"></td>-->
-<!--                                                <td th:text="${listSP.soLuong}"></td>-->
+                                                <td>
+                                                    <div style="margin: auto; width: 144px; height: 144px; object-fit: cover;">
+                                                        <img th:each="anh: ${listSP.listHinhAnhSanPham}" th:if="${listSP.listHinhAnhSanPham.size() > 0}"
+                                                             th:src="@{'../../../static/ImgShop/' + ${anh.ten}}" class="img-fluid product-thumbnail">
+                                                    </div>
+                                                </td>
                                                 <td th:text="${listSP.trangThai ? 'Đang Bán':'Ngừng Bán'}"></td>
                                                 <td th:text="${listSP.ngayTao}"></td>
                                                 <td>
@@ -308,5 +313,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script th:src="@{/assets/js/main.js}"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

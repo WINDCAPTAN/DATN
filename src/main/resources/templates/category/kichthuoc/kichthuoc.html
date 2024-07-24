@@ -12,7 +12,7 @@
             <div class="main-header-logo">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
-                    <a href="../index.html" class="logo">
+                    <a href="../../index.html" class="logo">
                         <img
                                 th:src="@{/assets/img/kaiadmin/logo_light.svg}"
                                 alt="navbar brand"
@@ -49,25 +49,26 @@
                             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4">
-                                        <div class="dataTables_length" id="dataTable_length">
-                                            <label>Show
-                                                <select name="dataTable_length" aria-controls="dataTable"
-                                                        class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select> entries
-                                            </label>
-                                        </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
-                                        <div id="dataTable_filter" class="dataTables_filter">
-                                            <label>Search:
-                                                <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
-                                            </label>
+                                    <form th:action="@{/kich-thuoc}" method="get" class="mb-3">
+                                        <div class="row g-3">
+                                            <div class="col-md-3">
+                                                <label for="searchKT" class="form-label">Tên Kích Thước</label>
+                                                <input type="text" class="form-control" id="searchKT" name="ten" th:value="${ten}"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="searchTrangThai" class="form-label">Trạng Thái</label>
+                                                <select class="form-control" id="searchTrangThai" name="trangThai">
+                                                    <option th:value="${null}" th:text="'Chọn Trạng Thái'"></option>
+                                                    <option th:value="true" th:text="'Hoạt Động'"></option>
+                                                    <option th:value="false" th:text="'Ngừng Hoạt Động'"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3 align-self-end">
+                                                <button type="submit" class="btn btn-primary">Tìm Kiếm</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <div class="col-sm-12 col-md-4">
                                         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addKichThuocModal">Thêm Kích Thước</a>
                                     </div>
@@ -88,85 +89,57 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="s,iterStat: ${listKT}">
-                                                <td th:text="${iterStat.count}"></td>
+                                            <tr th:each="s: ${listKT}">
+                                                <td th:text="${s.getId()}"></td>
                                                 <td th:text="${s.ten}"></td>
-                                                <td th:text="${s.trangThai ? 'Đang Hoạt Động':'Ngừng Hoạt Động'}"></td>
-                                                <td th:text="${s.ngayTao}"></td>
+                                                <td th:text="${s.trangThai ? 'Hoạt Động' : 'Ngừng Hoạt Động'}"></td>
+                                                <td th:text="${#dates.format(s.ngayTao, 'dd/MM/yyyy')}"></td>
                                                 <td>
-                                                    <a th:href="@{'/kich-thuoc/delete/'+ ${s.id}}">Xóa</a>
+                                                    <a th:href="@{'/kich-thuoc/view-update/'+ ${s.id}}" class="btn btn-primary">Update</a>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="dataTable_info" role="status"
-                                             aria-live="polite">Showing 1 to 10 of 57 entries
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item previous disabled"
-                                                    id="dataTable_previous"><a href="#" aria-controls="dataTable"
-                                                                               data-dt-idx="0" tabindex="0"
-                                                                               class="page-link">Previous</a></li>
-                                                <li class="paginate_button page-item active"><a href="#"
-                                                                                                aria-controls="dataTable"
-                                                                                                data-dt-idx="1"
-                                                                                                tabindex="0"
-                                                                                                class="page-link">1</a>
-                                                </li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="dataTable"
-                                                                                          data-dt-idx="2" tabindex="0"
-                                                                                          class="page-link">2</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="dataTable"
-                                                                                          data-dt-idx="3" tabindex="0"
-                                                                                          class="page-link">3</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="dataTable"
-                                                                                          data-dt-idx="4" tabindex="0"
-                                                                                          class="page-link">4</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="dataTable"
-                                                                                          data-dt-idx="5" tabindex="0"
-                                                                                          class="page-link">5</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                                                          aria-controls="dataTable"
-                                                                                          data-dt-idx="6" tabindex="0"
-                                                                                          class="page-link">6</a></li>
-                                                <li class="paginate_button page-item next" id="dataTable_next"><a
-                                                        href="#" aria-controls="dataTable" data-dt-idx="7" tabindex="0"
-                                                        class="page-link">Next</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--  Phân trang-->
+                <div class="pagination justify-content-center">
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${trangHienTai == 0} ? 'disabled'">
+                            <a class="page-link" th:href="@{/kich-thuoc(page=${trangHienTai - 1}, ten=${ten}, trangThai=${trangThai})}">Trước</a>
+                        </li>
+                        <li class="page-item" th:if="${tongSoTrang == 0}">
+                            <span class="page-link">0</span>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, tongSoTrang - 1)}" th:unless="${tongSoTrang == 0}" th:classappend="${i == trangHienTai} ? 'active'">
+                            <a class="page-link" th:href="@{/kich-thuoc(page=${i}, ten=${ten}, trangThai=${trangThai})}" th:text="${i + 1}">1</a>
+                        </li>
+                        <li class="page-item" th:classappend="${trangHienTai + 1 == tongSoTrang} ? 'disabled'">
+                            <a class="page-link" th:href="@{/kich-thuoc(page=${trangHienTai + 1}, ten=${ten}, trangThai=${trangThai})}">Tiếp</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--  Phân trang-->
             </div>
             <div class="modal fade" id="addKichThuocModal" tabindex="-1" role="dialog" aria-labelledby="addKichThuocModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addKichThuocLabel">Thêm Màu Sắc Mới</h5>
+                            <h5 class="modal-title" id="addKichThuocLabel">Thêm Kích Thước Mới</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
 
-                            <form id="addKichThuocForm" th:action="@{/kich-thuoc/add}" method="post">
+                            <form id="addKichThuocForm" th:action="@{/kich-thuoc/add}" method="post" th:object="${kichThuoc}">
                                 <div class="form-group">
                                     <label for="tenKichThuoc">Tên Kích Thước:</label>
-                                    <input type="text" class="form-control" id="tenKichThuoc" name="ten" placeholder="Nhập tên kích thước">
+                                    <input type="text" class="form-control" id="tenKichThuoc" name="ten" placeholder="Nhập tên kích thước" th:field="*{ten}">
                                 </div>
                                 <!-- Các trường dữ liệu khác nếu cần -->
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
