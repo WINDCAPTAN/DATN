@@ -20,6 +20,6 @@ public class ChatLieuServiceIMPL implements ChatLieuService {
     }
     @Override
     public ChatLieu getById(Long id) {
-        return chatLieuRepository.findById(id).get();
+        return chatLieuRepository.findById(id).orElse(null);
     }
 }

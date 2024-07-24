@@ -115,14 +115,29 @@ public class ChiTietSanPhamController {
             @PathVariable("id") Long id,
             Model model
     ) {
-
-        SanPham sanPham = sanPhamService.getById(id);
-        ChatLieu chatLieu = chatLieuService.getById(id);
-        List<SanPhamChiTiet> listChiTietSP = chiTietSanPhamService.getAll();
-        model.addAttribute("sanPhamDetail", sanPham);
-        model.addAttribute("listChiTietSP", listChiTietSP);
-        model.addAttribute("listTA", tayAoService.getAll());
-        model.addAttribute("listCL", chatLieu);
+        SanPhamChiTiet sanPhamChiTiet = chiTietSanPhamService.getById(id);
+        List<ChatLieu> chatLieus = chatLieuService.getAll();
+        model.addAttribute("listCL",chatLieus);
+        model.addAttribute("listSPCT", sanPhamChiTiet);
         return "/category/sanphamct/suasanphamchitiet";
     }
+    @PostMapping("/update")
+    public String update(
+            @RequestParam("listIdChiTietSp") List<String> listIdChiTietSp,
+            @RequestParam("listSanPham") List<String> listSanPham,
+            @RequestParam("listKichCo") List<String> listKichCo,
+            @RequestParam("listMauSac") List<String> listMauSac,
+            @RequestParam("listChatLieu") List<String> listChatLieu,
+            @RequestParam("listTayAo") List<String> listTayAo,
+            @RequestParam("listTrangThai") List<String> listTrangThai,
+            @RequestParam("listSoLuong") List<String> listSoLuong,
+            @RequestParam("listDonGia") List<String> listDonGia,
+            RedirectAttributes attributes
+    ) {
+        attributes.addFlashAttribute("checkThongBao", "thanhCong");
+        chiTietSanPhamService.updateAllCtsp(listIdChiTietSp, listSanPham, listKichCo, listMauSac,
+                listChatLieu, listTrangThai, listTayAo, listSoLuong, listDonGia );
+        return "redirect:/san-pham-chi-tiet";
+    }
 }
+
