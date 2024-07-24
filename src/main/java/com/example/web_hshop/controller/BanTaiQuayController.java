@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/ban-hang-tai-quay")
@@ -53,9 +53,10 @@ public class BanTaiQuayController {
         addKhachLe();
         if (hoaDonService.countHoaDonTreo() < 6) {
             HoaDon hd = new HoaDon();
-            hd.setTrangThai(-1); // view 5 hoa don
-//            hd.setNgaySua();
-//            hd.setNgayTao(new Date());
+            Date currentDate = new Date();
+            hd.setTrangThai(1); // view 5 hoa don
+            hd.setNgaySua(currentDate);
+            hd.setNgayTao(currentDate);
             hd.setTaiKhoan(khachHangService.findKhachLe());
             hoaDonService.saveOrUpdate(hd);
             hd.setMaHoaDon("HD" + hd.getId());
@@ -64,5 +65,24 @@ public class BanTaiQuayController {
         }
         return "redirect:/ban-hang-tai-quay/hoa-don";
     }
+    @GetMapping("/hoa-don/{id}")
+    public String hoaDon(@PathVariable Long id, Model model,RedirectAttributes redirectAttributes) {
+        chiTietSanPhamSerivce.checkSoLuongBang0();
 
+        TaiKhoan tk = new TaiKhoan();
+//        tk.setGioiTinh(0);
+        model.addAttribute("khachHang", tk);
+        request.setAttribute("lstHoaDon", hoaDonService.find5ByTrangThai(-1));
+        request.setAttribute("lstHdct", hoaDonChiTietService.findAll());
+
+        request.setAttribute("lstTaiKhoan", khachHangService.getAll());
+
+
+        // request.setAttribute("checkThongBao", "thatBai");
+        HoaDon hd = hoaDonService.findById(id);
+
+
+
+        return "/category/hoadonchitiet";
+    }
 }

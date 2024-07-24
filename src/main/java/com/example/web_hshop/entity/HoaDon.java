@@ -13,8 +13,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -38,9 +41,11 @@ public class HoaDon {
     private Integer trangThai;
 
     @Column(name = "NgayTao")
+    @DateTimeFormat(pattern = "HH:mm dd-MM-yyyy")
     private Date ngayTao;
 
     @Column(name = "NgaySua")
+    @DateTimeFormat(pattern = "HH:mm dd-MM-yyyy")
     private Date ngaySua;
 
     @ManyToOne
