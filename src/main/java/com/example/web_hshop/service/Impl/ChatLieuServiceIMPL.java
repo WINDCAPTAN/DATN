@@ -62,8 +62,5 @@ public class ChatLieuServiceIMPL implements ChatLieuService {
     public Page<ChatLieu> search(String ten, Boolean trangThai, Pageable pageable) {
         return chatLieuRepository.search(ten,trangThai,pageable);
     }
-    @Override
-    public ChatLieu getById(Long id) {
-        return chatLieuRepository.findById(id).orElse(null);
-    }
+
 }
