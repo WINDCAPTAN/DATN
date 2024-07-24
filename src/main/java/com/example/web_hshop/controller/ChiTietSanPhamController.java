@@ -17,6 +17,7 @@ import com.example.web_hshop.service.SanPhamService;
 import com.example.web_hshop.service.TayAoService;
 import com.example.web_hshop.service.ThuongHieuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,7 +89,7 @@ public class ChiTietSanPhamController {
         model.addAttribute("listChatLieu", chatLieuService.getAll());
         model.addAttribute("listKichCo", kichCoService.getAll());
         model.addAttribute("listMauSac", mauSacService.getAll());
-        model.addAttribute("listTayAo", tayAoService.getAll());
+        model.addAttribute("listTayAo", tayAoService.findAll(Pageable.unpaged()));
 //        model.addAttribute("thuongHieu", new ThuongHieu());
 //        model.addAttribute("kichCo", new KichCo());
 //        model.addAttribute("mauSac", new MauSac());
@@ -119,7 +120,7 @@ public class ChiTietSanPhamController {
         List<SanPhamChiTiet> listChiTietSP = chiTietSanPhamService.getAll();
         model.addAttribute("sanPhamDetail", sanPham);
         model.addAttribute("listChiTietSP", listChiTietSP);
-        model.addAttribute("listTA", tayAoService.getAll());
+        model.addAttribute("listTA", tayAoService.findAll(Pageable.unpaged()));
         model.addAttribute("listCL", chatLieuService.getAll());
         return "/category/sanphamct/suasanphamchitiet";
     }

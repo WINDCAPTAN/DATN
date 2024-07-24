@@ -9,6 +9,7 @@ import com.example.web_hshop.service.NhaSXService;
 import com.example.web_hshop.service.SanPhamService;
 import com.example.web_hshop.service.ThuongHieuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +41,8 @@ public class SanPhamController {
 
     @GetMapping
     public String hienThi(Model model){
-        model.addAttribute("listNSX",nhaSXService.getAll());
-        model.addAttribute("listTH",thuongHieuService.getAll());
+        model.addAttribute("listNSX",nhaSXService.findAll(Pageable.unpaged()));
+        model.addAttribute("listTH",thuongHieuService.findAll(Pageable.unpaged()));
         model.addAttribute("listSP",sanPhamService.getAll());
         model.addAttribute("sanPham", new SanPham() );
         return "category/sanpham/sanpham";
@@ -63,8 +64,8 @@ public class SanPhamController {
     public String viewUD(@PathVariable("id")Long id,
                          Model model){
         SanPham sanPham = sanPhamService.getById(id);
-        model.addAttribute("listTH",thuongHieuService.getAll());
-        model.addAttribute("listNSX",nhaSXService.getAll());
+        model.addAttribute("listTH",thuongHieuService.findAll(Pageable.unpaged()));
+        model.addAttribute("listNSX",nhaSXService.findAll(Pageable.unpaged()));
         model.addAttribute("listUD",sanPham);
         return "category/sanpham/sanpham-update";
     }

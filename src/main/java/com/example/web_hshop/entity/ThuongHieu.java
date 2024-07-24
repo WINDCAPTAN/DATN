@@ -6,13 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -28,7 +29,8 @@ public class ThuongHieu {
     @Column(name = "Id")
     private Long id;
 
-    @Column(name = "Ten")
+    @Column(name = "Ten", length = 100)
+    @NotBlank(message = "Không được trống tên")
     private String ten;
 
     @Column(name = "Ma")

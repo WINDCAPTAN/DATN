@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head"></div>
+<body>
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar"></div>
+  <!-- End Sidebar -->
+
+  <div class="main-panel">
+    <div class="main-header">
+      <div class="main-header-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+          <a href="../index.html" class="logo">
+            <img
+                    th:src="@{/assets/img/kaiadmin/logo_light.svg}"
+                    alt="navbar brand"
+                    class="navbar-brand"
+            />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical-alt"></i>
+          </button>
+        </div>
+        <!-- End Logo Header -->
+      </div>
+      <!-- Navbar Header -->
+      <div th:replace="fragments/topbar"></div>
+      <!-- End Navbar -->
+    </div>
+    <!--Nội Dung-->
+    <div class="container">
+      <div class="page-inner">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Danh Sách Thuong hieu</h6>
+                    </div>
+                    <div class="card-body">
+
+                <br>
+<!--                <div class="row">-->
+<!--                    <div class="col-6">-->
+<!--                        <form action="">-->
+<!--                        <label>Search:-->
+<!--                        <input type="search" class="form-control form-control-sm" placeholder=""-->
+<!--                               aria-controls="dataTable" id="searchKeyword" onkeyup="searchFunction()">-->
+<!--                        </label>-->
+
+<!--                             Trường ẩn cho số trang hiện tại -->
+<!--                        <input type="hidden" id="currentPage" value="${currentPage}">-->
+
+
+<!--                                tìm kiếm theo trạng thái-->
+<!--                        <div class="row g-3" style="margin-top: 2%;margin-bottom: 2%">-->
+<!--                            <div class="col-md-8">-->
+<!--                                <label>Trạng thái:</label>-->
+<!--                                <div class="btn-group" role="group" aria-label="Basic outlined example">-->
+<!--                                    <a href="/thuong-hieu" class="btn btn-outline-primary">-->
+<!--                                        Tất cả</a>-->
+<!--                                    <a href="/thuong-hieu/dang-hoat-dong"-->
+<!--                                       class="btn btn-outline-primary">-->
+<!--                                        Đang hoạt động</a>-->
+<!--                                    <a href="/thuong-hieu/ngung-hoat-dong"-->
+<!--                                       class="btn btn-outline-primary">-->
+<!--                                        Ngừng hoạt động</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                           -->
+<!--                        </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+                     <div class="col-md-6">
+                                <!-- Button trigger modal -->
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#them-thuong-hieu">Thêm Thương Hiệu</a>
+
+                            </div>
+                <br>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên Thương Hiệu</th>
+                        <th scope="col">Trạng Thái</th>
+<!--                        <th scope="col">Ngày Tạo</th>-->
+                        <th scope="col">Hành Động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="s,iterStat : ${listTH}">
+                        <td th:text="${iterStat.index+1}"></td>
+                        <td th:text="${s.ten}"></td>
+                        <td th:text="${s.trangThai ?'Đang hoạt dộng' : 'Ngừng hoạt động'}"></td>
+
+<!--                        <td th:text="${s.ngayTao}"></td>-->
+                        <td>
+                            <a th:href="@{'/thuong-hieu/view-update/' + ${s.id}}">Update</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                        <tfoot hidden="hidden">
+                            <tr>
+                                 <th scope="col">STT</th>
+                        <th scope="col">Tên Thương Hiệu</th>
+                        <th scope="col">Trạng Thái</th>
+<!--                        <th scope="col">Ngày Tạo</th>-->
+                        <th scope="col">Hành Động</th>
+                            </tr>
+                            </tfoot>
+                </table>
+                </div>
+      </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                    Showing [[${currentPage * 5 + 1}]] to [[${(currentPage + 1) * 5 > totalPages * 5 ? totalPages * 5 : (currentPage + 1) * 5}]] of [[${totalPages * 5}]] entries
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <ul class="pagination">
+
+                        <li class="paginate_button page-item previous" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                            <a href="#" aria-controls="dataTable" class="page-link" th:href="@{|/thuong-hieu?page=${currentPage - 1}&keyword=${keyword}|}">&laquo;</a>
+                        </li>
+                        <li th:each="page : ${#numbers.sequence(0, totalPages - 1)}" class="paginate_button page-item" th:classappend="${currentPage == page} ? 'active' : ''">
+                            <a href="#" aria-controls="dataTable" class="page-link" th:text="${page + 1}" th:href="@{|/thuong-hieu?page=${page}&keyword=${keyword}|}"></a>
+                        </li>
+                        <li class="paginate_button page-item next" th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''">
+                            <a href="#" aria-controls="dataTable" class="page-link" th:href="@{|/thuong-hieu?page=${currentPage + 1}&keyword=${keyword}|}">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+      <div class="modal fade" id="them-thuong-hieu" tabindex="-1" role="dialog"
+           aria-labelledby="them-thuong-hieuLabel" aria-hidden="true">
+          <script th:if="${checkModal=='modal'}">
+              window.addEventListener('DOMContentLoaded', (event) => {
+                  // Hiển thị modal
+                  var myModal = new bootstrap.Modal(document.getElementById('them-thuong-hieu'));
+                  myModal.show();
+              });
+          </script>
+
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="them-thuong-hieuLabel">Thêm Thương Hiệu Mới</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Form to add new Chat Lieu -->
+                <form th:action="@{/thuong-hieu/add}" method="post"
+                      enctype="multipart/form-data"
+                      th:object="${thuongHieu}">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="themThuongHieu"
+                           placeholder="Nhập thương hiệu" th:field="*{ten}">
+                    <span class="check-loi" th:errors="*{ten}"></span>
+                    <span class="check-loi" th:text="${checkTenTrungDiaChi}"></span>
+
+                </div>
+                <!-- Add other form fields if needed -->
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Thêm Thương Hiệu</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="fragments/footer"></div>
+  </div>
+    <!--Thông báo thành công-->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <script th:if="${checkThongBao=='thanhCong'}">
+            // <script>
+            //     function showToast() {
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+            //         liveToast.show();
+            //
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+            //         liveToast.show();
+            //
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+            //         liveToast.show();
+            //     }
+            //     // Show the toast when the page loads
+            //     document.addEventListener('DOMContentLoaded', showToast);
+            //
+            window.addEventListener('DOMContentLoaded', (event) => {
+                // Hiển thị modal
+                var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+                liveToast.show();
+            });
+        </script>
+        <div id="liveToastSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+             style="  background-color: rgba(62, 189, 97,0.2);border:2px solid #3ebd61;  border-radius:1rem;">
+            <div class="toast-body">
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <img src="../../../static/img/successful_notification.png" alt="" style="margin: auto">
+                    </div>
+                    <div class="col-md-8" style=" margin-top:6.3%">
+                    <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: #3ebd61;">
+                        Thành công</span>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                                style="font-size: 1.5rem;margin: auto"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Thông báo thành công-->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <script th:if="${checkThongBao=='thanhCong'}">
+            // <script>
+            //     function showToast() {
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+            //         liveToast.show();
+            //
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+            //         liveToast.show();
+            //
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+            //         liveToast.show();
+            //     }
+            //     // Show the toast when the page loads
+            //     document.addEventListener('DOMContentLoaded', showToast);
+            //
+            window.addEventListener('DOMContentLoaded', (event) => {
+                // Hiển thị modal
+                var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+                liveToast.show();
+            });
+        </script>
+        <div id="liveToastSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+             style="  background-color: rgba(62, 189, 97,0.2);border:2px solid #3ebd61;  border-radius:1rem;">
+            <div class="toast-body">
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <img src="../../../static/img/successful_notification.png" alt="" style="margin: auto">
+                    </div>
+                    <div class="col-md-8" style=" margin-top:6.3%">
+                    <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: #3ebd61;">
+                        Thành công</span>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                                style="font-size: 1.5rem;margin: auto"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Thông báo thành công end-->
+    <!--Thông báo thất bại-->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <script th:if="${checkThongBao=='thaiBai'}">
+            // <script>
+            //     function showToast() {
+            //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+            //         liveToast.show();
+            //     }
+            //     // Show the toast when the page loads
+            //     document.addEventListener('DOMContentLoaded', showToast);
+            //
+            window.addEventListener('DOMContentLoaded', (event) => {
+                // Hiển thị modal
+                var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+                liveToast.show();
+            });
+        </script>
+        <div id="liveToastDanger" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+             style="background-color: rgb(252,134,134);border:2px solid #ff2020;border-radius:1rem;">
+            <div class="toast-body">
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <img src="../../../static/img/successful_danger.png" alt="" style="margin: auto">
+                    </div>
+                    <div class="col-md-8" style=" margin-top:6.3%">
+                    <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: white;">
+                        Lỗi</span>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                                style="font-size: 1.5rem;margin: auto"></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Thông báo thất bại end-->
+<!--    &lt;!&ndash;    thư viện của bảng tích hợp tìm kiếm&ndash;&gt;-->
+<!--    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>-->
+<!--    <script src='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.js'></script>-->
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            var table = $('#example').DataTable({-->
+<!--                "language": {-->
+<!--                    "info": "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ kết quả",-->
+<!--                    "emptyTable": "Không có kết quả nào được tìm thấy",-->
+<!--                    "zeroRecords": "Không có kết quả phù hợp",-->
+<!--                    "infoEmpty": "Không có dữ liệu để hiển thị"-->
+<!--                },-->
+<!--                "initComplete": function (settings, json) {-->
+<!--                    // CSS changes-->
+<!--                    $('#example_filter input[type="search"]').addClass('form-control');-->
+<!--                    $('#example_filter input[type="search"]').attr('placeholder', 'Tìm kiếm');-->
+<!--                    $('#example_filter label').contents().filter(function () {-->
+<!--                        return this.nodeType === 3;-->
+<!--                    }).replaceWith(' ');-->
+
+<!--                    $('#example_length label').contents().filter(function () {-->
+<!--                        return this.nodeType === 3;-->
+<!--                    }).first().replaceWith('Hiển thị');-->
+<!--                    $('#example_length label').contents().filter(function () {-->
+<!--                        return this.nodeType === 3;-->
+<!--                    }).last().replaceWith('mục');-->
+
+<!--                    $('#example_length select').addClass('form-select');-->
+<!--                }-->
+<!--            });-->
+
+<!--            table.on('draw.dt', function () {-->
+<!--                var pageInfo = table.page.info();-->
+
+<!--                var newInfo = 'Hiển thị ' + pageInfo.start + ' đến ' + pageInfo.end + ' trong tổng số ' + pageInfo.recordsDisplay + ' kết quả';-->
+<!--                $('#example_info').html(newInfo);-->
+
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<!--    <style>-->
+<!--        /*input tìm kiếm*/-->
+<!--        #example_filter input[type="search"] {-->
+<!--            width: 180%;-->
+<!--            margin-left: -80%;-->
+<!--            margin-bottom: 10%;-->
+<!--        }-->
+
+<!--        /*select hiển thị mục*/-->
+<!--        .dataTables_length label {-->
+<!--            white-space: nowrap; /* Ngăn các phần tử xuống dòng */-->
+<!--            display: flex; /* Hiển thị label và select trên cùng một dòng */-->
+<!--            align-items: center; /* Canh chỉnh label và select theo chiều dọc */-->
+<!--        }-->
+
+<!--        .dataTables_length select {-->
+<!--            margin-left: 5px; /* Tạo khoảng cách giữa label và select */-->
+<!--        }-->
+
+<!--        .dataTables_length label:after {-->
+<!--            /* Sử dụng pseudo-element :after để ẩn văn bản cuối cùng */-->
+<!--            content: ''; /* Xóa nội dung */-->
+<!--        }-->
+<!--    </style>-->
+<!--tim kiem-->
+    <script>
+        function searchFunction() {
+            var keyword = encodeURIComponent(document.getElementById('searchKeyword').value);
+            var currentPage = document.getElementById('currentPage').value || 0;
+            // Cập nhật URL với từ khóa tìm kiếm và số trang hiện tại
+            window.location.href = '/thuong-hieu?page=' + encodeURIComponent(currentPage) + '&keyword=' + keyword;
+        }
+    </script>
+
+
+<!--    ket thuc tim kiem -->
+  <!-- Custom template | don't include it in your project! -->
+
+  <!-- End Custom template -->
+</div>
+<!--   Core JS Files   -->
+<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- Chart JS -->
+<script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Chart Circle -->
+<script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
+
+<!-- Datatables -->
+<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+
+<!-- Bootstrap Notify -->
+<script src="../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- jQuery Vector Maps -->
+<script src="../assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+<script src="../assets/js/plugin/jsvectormap/world.js"></script>
+
+<!-- Google Maps Plugin -->
+<script src="../assets/js/plugin/gmaps/gmaps.js"></script>
+
+<!-- Sweet Alert -->
+<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+<!-- Kaiadmin JS -->
+<script src="../assets/js/kaiadmin.min.js"></script>
+
+<!-- Kaiadmin DEMO methods, don't include it in your project! -->
+<script src="../assets/js/setting-demo2.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

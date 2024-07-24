@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head"></div>
+<body>
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar"></div>
+  <!-- End Sidebar -->
+
+  <div class="main-panel">
+    <div class="main-header">
+      <div class="main-header-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+          <a href="../index.html" class="logo">
+            <img
+                    th:src="@{/assets/img/kaiadmin/logo_light.svg}"
+                    alt="navbar brand"
+                    class="navbar-brand"
+            />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical-alt"></i>
+          </button>
+        </div>
+        <!-- End Logo Header -->
+      </div>
+      <!-- Navbar Header -->
+      <div th:replace="fragments/topbar"></div>
+      <!-- End Navbar -->
+    </div>
+    <main id="main" class="main">
+
+      <div class="pagetitle">
+        <h1>Danh Sách Nhà Sản Xuất</h1>
+      </div><!-- End Page Title -->
+
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+
+                <!-- form thêm thuộc tính -->
+                <form method="post" style="width: 55%; margin: auto;" th:action="@{/nha-san-xuat/update}" th:object="${nhaSX}">
+                  <input type="hidden" th:field="*{id}" name="id">
+                  <h1 class="modal-title fs-5" style="text-align: center; margin-top: 10%; margin-bottom: 5%;">Cập Nhật Nhà Sản Xuất</h1>
+
+                  <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">
+                      <span style="color: red;">*</span> Nhà Sản Xuất
+                    </label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" placeholder="Nhập nhà sản xuất " th:field="*{ten}" />
+                      <span class="check-loi" th:errors="*{ten}"></span>
+                      <span class="check-loi" th:text="${checkTenTrung}"></span>
+                    </div>
+                  </div>
+
+                  <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-4">
+                      <span style="color: red;">*</span> Trạng Thái
+                    </legend>
+                    <div class="col-sm-8 d-flex flex-column">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" value="true" name="trangThai" th:field="*{trangThai}">
+                        <label class="form-check-label">Đang hoạt động</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="trangThai" value="false" th:field="*{trangThai}">
+                        <label class="form-check-label">Ngừng hoạt động</label>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <div class="d-flex justify-content-center" style=" margin-bottom: 5%;">
+                    <a href="/nha-san-xuat" class="btn btn-secondary me-2">Quay lại</a>
+                    <button type="submit" class="btn btn-warning">Cập nhật</button>
+                  </div>
+                </form>
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main><!-- End #main -->
+
+    <div th:replace="fragments/footer"></div>
+  </div>
+  <!--Thông báo thành công-->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <script th:if="${checkThongBao=='thanhCong'}">
+      // <script>
+      //     function showToast() {
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+      //         liveToast.show();
+      //
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+      //         liveToast.show();
+      //
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+      //         liveToast.show();
+      //     }
+      //     // Show the toast when the page loads
+      //     document.addEventListener('DOMContentLoaded', showToast);
+      //
+      window.addEventListener('DOMContentLoaded', (event) => {
+        // Hiển thị modal
+        var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+        liveToast.show();
+      });
+    </script>
+    <div id="liveToastSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+         style="  background-color: rgba(62, 189, 97,0.2);border:2px solid #3ebd61;  border-radius:1rem;">
+      <div class="toast-body">
+        <div class="row g-3">
+          <div class="col-md-2">
+            <img src="../../../static/img/successful_notification.png" alt="" style="margin: auto">
+          </div>
+          <div class="col-md-8" style=" margin-top:6.3%">
+                    <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: #3ebd61;">
+                        Thành công</span>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                    style="font-size: 1.5rem;margin: auto"></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Thông báo thành công-->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <script th:if="${checkThongBao=='thanhCong'}">
+      // <script>
+      //     function showToast() {
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+      //         liveToast.show();
+      //
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+      //         liveToast.show();
+      //
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+      //         liveToast.show();
+      //     }
+      //     // Show the toast when the page loads
+      //     document.addEventListener('DOMContentLoaded', showToast);
+      //
+      window.addEventListener('DOMContentLoaded', (event) => {
+        // Hiển thị modal
+        var liveToast = new bootstrap.Toast(document.getElementById('liveToastSuccess'));
+        liveToast.show();
+      });
+    </script>
+    <div id="liveToastSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+         style="  background-color: rgba(62, 189, 97,0.2);border:2px solid #3ebd61;  border-radius:1rem;">
+      <div class="toast-body">
+        <div class="row g-3">
+          <div class="col-md-2">
+            <img src="../../../static/img/successful_notification.png" alt="" style="margin: auto">
+          </div>
+          <div class="col-md-8" style=" margin-top:6.3%">
+                    <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: #3ebd61;">
+                        Thành công</span>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                    style="font-size: 1.5rem;margin: auto"></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Thông báo thành công end-->
+  <!--Thông báo thất bại-->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <script th:if="${checkThongBao=='thaiBai'}">
+      // <script>
+      //     function showToast() {
+      //         var liveToast = new bootstrap.Toast(document.getElementById('liveToastWarning'));
+      //         liveToast.show();
+      //     }
+      //     // Show the toast when the page loads
+      //     document.addEventListener('DOMContentLoaded', showToast);
+      //
+      window.addEventListener('DOMContentLoaded', (event) => {
+        // Hiển thị modal
+        var liveToast = new bootstrap.Toast(document.getElementById('liveToastDanger'));
+        liveToast.show();
+      });
+    </script>
+    <div id="liveToastDanger" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+         style="background-color: rgb(252,134,134);border:2px solid #ff2020;border-radius:1rem;">
+      <div class="toast-body">
+        <div class="row g-3">
+          <div class="col-md-2">
+            <img src="../../../static/img/successful_danger.png" alt="" style="margin: auto">
+          </div>
+          <div class="col-md-8" style=" margin-top:6.3%">
+                    <span style="
+                    text-align: center;
+                    font-size: 1rem; /* Kích thước phông chữ */
+                    font-weight: bold; /* Độ đậm của chữ */
+                    color: white;">
+                        Lỗi</span>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                    style="font-size: 1.5rem;margin: auto"></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Thông báo thất bại end-->
+
+  <!-- Custom template | don't include it in your project! -->
+
+  <!-- End Custom template -->
+</div>
+<!--   Core JS Files   -->
+<script src="../assets/js/core/jquery-3.7.1.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+
+<!-- jQuery Scrollbar -->
+<script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+<!-- Chart JS -->
+<script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+
+<!-- jQuery Sparkline -->
+<script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Chart Circle -->
+<script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
+
+<!-- Datatables -->
+<script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+
+<!-- Bootstrap Notify -->
+<script src="../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+<!-- jQuery Vector Maps -->
+<script src="../assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+<script src="../assets/js/plugin/jsvectormap/world.js"></script>
+
+<!-- Google Maps Plugin -->
+<script src="../assets/js/plugin/gmaps/gmaps.js"></script>
+
+<!-- Sweet Alert -->
+<script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+<!-- Kaiadmin JS -->
+<script src="../assets/js/kaiadmin.min.js"></script>
+
+<!-- Kaiadmin DEMO methods, don't include it in your project! -->
+<script src="../assets/js/setting-demo2.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
