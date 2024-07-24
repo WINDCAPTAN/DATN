@@ -28,8 +28,8 @@ public class KichCo {
     @Column(name = "ID")
     private Long id;
 
-//    @Column(name = "Ma")
-//    private String ma;
+    @Column(name = "Ma")
+    private String ma;
     @Column(name = "Ten")
     private String ten;
 
