@@ -28,7 +28,7 @@ public class HinhAnhServiceIMPL implements HinhAnhService {
                     hinhAnh.setTen(multipartFile.getOriginalFilename());
                     hinhAnh.setNgayTao(currentDate);
                     hinhAnh.setNgaySua(currentDate);
-                    hinhAnh.setTrangThai(false);
+                    hinhAnh.setTrangThai(true);
                     hinhAnh.setSanPham(sanPham);
                     // Thực hiện các tác vụ khác nếu cần thiết
                     hinhAnhRepo.save(hinhAnh);
@@ -50,7 +50,7 @@ public class HinhAnhServiceIMPL implements HinhAnhService {
                     hinhAnh.setTen(multipartFile.getOriginalFilename());
                     hinhAnh.setNgayTao(currentDate);
                     hinhAnh.setNgaySua(currentDate);
-                    hinhAnh.setTrangThai(false);
+                    hinhAnh.setTrangThai(true);
                     hinhAnh.setSanPham(SanPham.builder().id(id).build());
                     // Thực hiện các tác vụ khác nếu cần thiết
                     hinhAnhRepo.save(hinhAnh);
