@@ -36,6 +36,6 @@ public class SanPhamServiceIMPL implements SanPhamService {
 
     @Override
     public SanPham getById(Long id) {
-        return sanPhamRepo.findById(id).get();
+        return sanPhamRepo.findById(id).orElse(null);
     }
 }
