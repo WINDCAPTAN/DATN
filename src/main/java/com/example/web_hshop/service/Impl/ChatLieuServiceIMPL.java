@@ -1,6 +1,7 @@
 package com.example.web_hshop.service.Impl;
 
 import com.example.web_hshop.entity.ChatLieu;
+import com.example.web_hshop.entity.SanPham;
 import com.example.web_hshop.repository.ChatLieuRepository;
 import com.example.web_hshop.service.ChatLieuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,9 @@ public class ChatLieuServiceIMPL implements ChatLieuService {
     @Override
     public Page<ChatLieu> search(String ten, Boolean trangThai, Pageable pageable) {
         return chatLieuRepository.search(ten,trangThai,pageable);
+    }
+    @Override
+    public ChatLieu getById(Long id) {
+        return chatLieuRepository.findById(id).orElse(null);
     }
 }

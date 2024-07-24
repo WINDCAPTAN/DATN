@@ -114,7 +114,7 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="../../index.html" class="logo">
-                        <img th:src="@{/assets/img/kaiadmin/logo_light.svg}" alt="navbar brand" class="navbar-brand" />
+                        <img th:src="@{/assets/img/kaiadmin/logo_light.svg}" alt="navbar brand" class="navbar-brand"/>
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -139,27 +139,32 @@
             <div class="page-inner">
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <form id="addSanPhamForm" th:action="@{/san-pham/update}" method="post" enctype="multipart/form-data">
+                        <form id="updateSanPhamForm" th:action="@{/san-pham/update}" method="post"
+                              enctype="multipart/form-data">
                             <input type="hidden" name="id" th:value="${listUD.id}"/>
 
                             <div class="mb-3">
                                 <label for="maSanPham">Mã Sản Phẩm:</label>
-                                <input type="text" class="form-control" id="maSanPham" name="ma" th:value="${listUD.ma}">
+                                <input type="text" class="form-control" id="maSanPham" name="ma"
+                                       th:value="${listUD.ma}">
                             </div>
                             <div class="mb-3">
                                 <label for="tenSanPham">Tên Sản Phẩm:</label>
-                                <input type="text" class="form-control" id="tenSanPham" name="ten" th:value="${listUD.ten}">
+                                <input type="text" class="form-control" id="tenSanPham" name="ten"
+                                       th:value="${listUD.ten}">
                             </div>
                             <div class="mb-3">
                                 <label>Trạng Thái</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="trangThai" id="flexRadioDefault1"
+                                           th:value="true" th:checked="${listUD.trangThai}">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Đang Hoạt Động
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" type="radio" name="trangThai" id="flexRadioDefault2"
+                                           th:value="false" th:checked="${!listUD.trangThai}">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Ngừng Hoạt Động
                                     </label>
@@ -167,14 +172,17 @@
                             </div>
                             <div class="mb-3">
                                 <select class="form-select" aria-label="Default select example" name="nhaSX">
-                                    <option selected value="">Chọn NSX</option>
-                                    <option th:each="listNSX : ${listNSX}" th:value="${listNSX.id}" th:text="${listNSX.ten}"></option>
+                                    <option value="" th:text="'Chọn NSX'" th:if="${listUD.nhaSX == null}"></option>
+                                    <option th:each="nsx : ${listNSX}" th:value="${nsx.id}" th:text="${nsx.ten}"
+                                            th:selected="${listUD.nhaSX?.id == nsx.id}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <select class="form-select" aria-label="Default select example" name="thuongHieu">
-                                    <option selected value="">Chọn Thương Hiệu</option>
-                                    <option th:each="listTH : ${listTH}" th:value="${listTH.id}" th:text="${listTH.ten}"></option>
+                                    <option value="" th:text="'Chọn Thương Hiệu'"
+                                            th:if="${listUD.thuongHieu == null}"></option>
+                                    <option th:each="th : ${listTH}" th:value="${th.id}" th:text="${th.ten}"
+                                            th:selected="${listUD.thuongHieu?.id == th.id}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -184,16 +192,18 @@
                                         <i class="fas fa-image"></i> Chọn ảnh
                                     </label>
                                     <div class="img-them">
-                                        <input type="file" id="file--input" multiple accept="image/*" name="files" onchange="handleFiles(this.files)">
+                                        <input type="file" id="file--input" multiple accept="image/*" name="files"
+                                               onchange="handleFiles(this.files)">
                                         <div id="gallery"></div>
                                     </div>
                                     <span class="check-loi" id="error-msg"></span>
                                 </div>
                             </div>
                             <a th:href="@{/san-pham}" type="button" class="btn btn-danger">Đóng</a>
-                            <button type="submit" class="btn btn-primary">Thêm</button>
+                            <button type="submit" class="btn btn-primary">Cập Nhật</button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head"></div>
+<style>
+  .tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    clear: both;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+</style>
+<body>
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar"></div>
+  <!-- End Sidebar -->
+
+  <div class="main-panel">
+    <div class="main-header">
+      <div class="main-header-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+          <a href="../index.html" class="logo">
+            <img
+                    th:src="@{/assets/img/kaiadmin/logo_light.svg}"
+                    alt="navbar brand"
+                    class="navbar-brand"
+            />
+          </a>
+          <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+              <i class="gg-menu-right"></i>
+            </button>
+            <button class="btn btn-toggle sidenav-toggler">
+              <i class="gg-menu-left"></i>
+            </button>
+          </div>
+          <button class="topbar-toggler more">
+            <i class="gg-more-vertical-alt"></i>
+          </button>
+        </div>
+        <!-- End Logo Header -->
+      </div>
+      <!-- Navbar Header -->
+      <div th:replace="fragments/topbar"></div>
+      <!-- End Navbar -->
+    </div>
+    <!--Nội Dung-->
+    <div class="container">
+      <div class="page-inner">
+        <section class="section">
+
+
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-tao-moi">
+                    <div class="tao-hd">
+                      <!-- <button type="button" class="btn btn-success">Tạo hóa đơn</button> -->
+
+                      <a th:if="${lstHoaDon.size()<6}" id="postLink" class="btn btn-success">Tạo
+                        Hóa đơn</a>
+                      <button th:if="${lstHoaDon.size()>=6}" type="button" class="btn btn-success"
+                              data-bs-toggle="modal" data-bs-target="#error5HoaDon">
+                        Tạo Hóa đơn
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="error5HoaDon" tabindex="-1" role="dialog"
+                           aria-labelledby="modalTitleId" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="modalTitleId">Thông báo</h5>
+                            </div>
+                            <div class="modal-body">
+                              <div style="text-align: center;" class="container-fluid">
+                                Bạn chỉ có thể tạo tối đa 6 hóa đơn!
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary"
+                                      data-bs-dismiss="modal">Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <script>
+                        document.getElementById("postLink").addEventListener("click", function (event) {
+                          event.preventDefault(); // Ngăn chặn thực hiện mặc định của thẻ <a>
+
+                          var form = document.createElement("form");
+                          form.method = "POST";
+                          form.action = "/ban-hang-tai-quay/hoa-don/add"; // Đặt URL mà bạn muốn gửi yêu cầu POST đến
+
+                          var input = document.createElement("input");
+                          input.type = "hidden";
+                          input.name = "key";
+                          input.value = "value"; // Dữ liệu bạn muốn gửi
+
+                          form.appendChild(input);
+
+                          document.body.appendChild(form);
+                          form.submit();
+                        });
+                      </script>
+
+
+                    </div>
+                    <!-- tao moi va danh sach hoa don tabs -->
+
+                    <!--                                        <div class="tab-content pt-2" id="myTabContent">-->
+                    <div class="tab-pane fade show active" id="tao-moi" role="tabpanel"
+                         aria-labelledby="tao-moi-tab">
+                      <!-- Default Tabs -->
+                      <div class="hoa-don">
+                        <div th:each="hd : ${lstHoaDon}" class="btn-group" role="group"
+                             aria-label="Basic outlined example">
+                          <a th:text="${hd.maHoaDon}"
+                             th:href="@{'/ban-hang-tai-quay/hoa-don/'+${hd.id}}"
+                             class="btn btn-outline-primary"></a>
+                        </div>
+                      </div>
+                      <!--                                            </div>-->
+                    </div>
+
+                  </div>
+        </section>
+      </div>
+    </div>
+
+    <div th:replace="fragments/footer"></div>
+  </div>
+
+  <!-- Custom template | don't include it in your project! -->
+
+  <!-- End Custom template -->
+</div>
+<!--   Core JS Files   -->
+<script th:src="@{/assets/js/core/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/assets/js/core/popper.min.js}"></script>
+<script th:src="@{/assets/js/core/bootstrap.min.js}"></script>
+
+<!-- jQuery Scrollbar -->
+<script th:src="@{/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js}"></script>
+
+<!-- Chart JS -->
+<script th:src="@{/assets/js/plugin/chart.js/chart.min.js}"></script>
+
+<!-- jQuery Sparkline -->
+<script th:src="@{/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js}"></script>
+
+<!-- Chart Circle -->
+<script th:src="@{/assets/js/plugin/chart-circle/circles.min.js}"></script>
+
+<!-- Datatables -->
+<script th:src="@{/assets/js/plugin/datatables/datatables.min.js}"></script>
+
+<!-- Bootstrap Notify -->
+<script th:src="@{/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js}"></script>
+
+<!-- jQuery Vector Maps -->
+<script th:src="@{/assets/js/plugin/jsvectormap/jsvectormap.min.js}"></script>
+<script th:src="@{/assets/js/plugin/jsvectormap/world.js}"></script>
+
+<!-- Google Maps Plugin -->
+<script th:src="@{/assets/js/plugin/gmaps/gmaps.js}"></script>
+
+<!-- Sweet Alert -->
+<script th:src="@{/assets/js/plugin/sweetalert/sweetalert.min.js}"></script>
+
+<!-- Kaiadmin JS -->
+<script th:src="@{/assets/js/kaiadmin.min.js}"></script>
+
+<!-- Kaiadmin DEMO methods, don't include it in your project! -->
+<script th:src="@{/assets/js/setting-demo2.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

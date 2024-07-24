@@ -16,9 +16,12 @@ List<SanPhamChiTiet> add(
     List<SanPhamChiTiet> updateAllCtsp(
             List<String> listIdChiTietSp, List<String> listSanPham,
             List<String> listKichCo, List<String> listMauSac,
-            List<String> listTayAo, List<String> listTrangThai, List<String> listChatLieu,
+             List<String> listTrangThai, List<String> listChatLieu, List<String> listTayAo,
             List<String> listSoLuong, List<String> listDonGia);
 
     SanPhamChiTiet update(SanPhamChiTiet chiTietSanPham);
     SanPhamChiTiet getById(Long id);
+
+    void checkSoLuongBang0();
+
 }
