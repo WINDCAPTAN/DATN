@@ -15,4 +15,7 @@ public interface ChiTietSanPhamRepository extends JpaRepository<SanPhamChiTiet,L
     @Modifying
     @Query(value = " update ChiTietSanPham  set TrangThai = 1  where SoLuong =0", nativeQuery = true)
     void checkSoLuongBang0();
+
+    @Query(value = "select * from ChiTietSanPham where TrangThai = 0 and SoLuong>0", nativeQuery = true)
+    List<SanPhamChiTiet> fillAllDangHoatDongLonHon0();
 }

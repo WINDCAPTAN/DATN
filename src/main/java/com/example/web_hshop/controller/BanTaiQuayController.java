@@ -2,6 +2,8 @@ package com.example.web_hshop.controller;
 
 
 import com.example.web_hshop.entity.HoaDon;
+import com.example.web_hshop.entity.HoaDonChiTiet;
+import com.example.web_hshop.entity.SanPhamChiTiet;
 import com.example.web_hshop.entity.TaiKhoan;
 import com.example.web_hshop.service.ChiTietSanPhamService;
 import com.example.web_hshop.service.HoaDonChiTietService;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
@@ -40,6 +44,7 @@ public class BanTaiQuayController {
         request.setAttribute("lstHoaDon", hoaDonService.find5ByTrangThai(1));
         return "category/bantaiquay";
     }
+
 
     void addKhachLe() {
         if (khachHangService.findKhachLe() == null) {
@@ -66,23 +71,20 @@ public class BanTaiQuayController {
         return "redirect:/ban-hang-tai-quay/hoa-don";
     }
     @GetMapping("/hoa-don/{id}")
-    public String hoaDon(@PathVariable Long id, Model model,RedirectAttributes redirectAttributes) {
+    public String hoaDon(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         chiTietSanPhamSerivce.checkSoLuongBang0();
 
         TaiKhoan tk = new TaiKhoan();
-//        tk.setGioiTinh(0);
         model.addAttribute("khachHang", tk);
-        request.setAttribute("lstHoaDon", hoaDonService.find5ByTrangThai(-1));
-        request.setAttribute("lstHdct", hoaDonChiTietService.findAll());
+        model.addAttribute("lstHoaDon", hoaDonService.find5ByTrangThai(1));
+        model.addAttribute("lstHdct", hoaDonChiTietService.findAll());
+        model.addAttribute("lstCtsp", chiTietSanPhamSerivce.fillAllDangHoatDongLonHon0());
+        model.addAttribute("lstTaiKhoan", khachHangService.getAll());
 
-        request.setAttribute("lstTaiKhoan", khachHangService.getAll());
-
-
-        // request.setAttribute("checkThongBao", "thatBai");
         HoaDon hd = hoaDonService.findById(id);
+        model.addAttribute("hoaDon", hd);
 
-
-
-        return "/category/hoadonchitiet";
+        return "category/hoadonchitiet"; // Đảm bảo rằng đường dẫn này đúng với cấu trúc thư mục của bạn
     }
+
 }
