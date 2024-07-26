@@ -20,7 +20,7 @@ import java.time.LocalDate;
 
 @Controller
 public class ChatLieuController {
-//test 1
+//test
     @Autowired
     private ChatLieuService chatLieuService;
 
