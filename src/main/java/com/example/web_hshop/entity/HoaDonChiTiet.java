@@ -48,4 +48,8 @@ public class HoaDonChiTiet {
     @ManyToOne
     @JoinColumn(name = "IdChiTietSanPham")
     private SanPhamChiTiet sanPhamChiTiet;
+
+    public Long tongTien(){
+        return this.giaBan*this.soLuong;
+    }
 }

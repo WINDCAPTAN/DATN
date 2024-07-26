@@ -134,6 +134,8 @@ public class ChiTietSanPhamServiceIMPL implements ChiTietSanPhamService {
     public void checkSoLuongBang0() {
         chiTietSanPhamRepository.checkSoLuongBang0();
     }
-
-
+    @Override
+    public List<SanPhamChiTiet> fillAllDangHoatDongLonHon0() {
+        return chiTietSanPhamRepository.fillAllDangHoatDongLonHon0();
+    }
 }

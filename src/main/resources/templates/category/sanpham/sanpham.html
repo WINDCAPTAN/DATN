@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/head"></div>
+<div th:replace="~{fragments/head :: head}"></div>
 <style>
     #gallery {
         display: flex;
@@ -313,6 +313,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script th:src="@{/assets/js/main.js}"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

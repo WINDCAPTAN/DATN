@@ -23,5 +23,5 @@ List<SanPhamChiTiet> add(
     SanPhamChiTiet getById(Long id);
 
     void checkSoLuongBang0();
-
+    List<SanPhamChiTiet> fillAllDangHoatDongLonHon0();
 }
